@@ -3,8 +3,6 @@ const helmet = require('helmet');
 const express = require('express');
 const app = express();
 
-const dotenv = require('dotenv');
-const env = dotenv.config().parsed;
 // set security HTTP headers
 app.use(helmet());
 
