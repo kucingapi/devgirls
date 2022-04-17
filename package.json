@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "set NODE_ENV=development && nodemon src/index.js",
+    "sync": "set NODE_ENV=sync && nodemon src/index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
@@ -33,6 +34,7 @@
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
+    "sequelize-cli": "^6.4.1",
     "supertest": "^6.2.2"
   }
 }
