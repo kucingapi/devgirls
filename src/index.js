@@ -1,7 +1,7 @@
 const { sequelize } = require('./entities/models');
 const app = require('./app');
 const port = 3000;
-const nodeEnv = process.env.NODE_ENV;
+const nodeEnv = process.env.NODE_ENV.trim();
 
 // Data Base connection
 app.listen(port, async () => {
@@ -9,8 +9,7 @@ app.listen(port, async () => {
     await sequelize.sync().catch((error) => {
       console.error('Unable to connect to the database:', error);
     });
-  }
-  else {
+  } else {
     await sequelize.authenticate().catch((error) => {
       console.error('Unable to connect to the database:', error);
     });
