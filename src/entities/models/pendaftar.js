@@ -17,15 +17,20 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
         model:'anggota',
         key:'id',
         type: DataTypes.INTEGER,
-        deferrable: Deferrable.Deferrable
+        deferrable: Deferrable.INITIALLY_IMMEDIATE,
+        allowNull: false
       },
       idAcara:{
         model:'acara',
         key:'id',
         type: DataTypes.INTEGER,
-        deferrable: Deferrable.Deferrable
+        deferrable: Deferrable.INITIALLY_IMMEDIATE,
+        allowNull: false
       },
-      tanggalJoin: DataTypes.DATE,
+      tanggalJoin: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
     },
     {
       sequelize,

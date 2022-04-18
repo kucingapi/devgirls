@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
         model: 'anggota',
         key: 'id',
         type: DataTypes.INTEGER,
-        deferrable: Deferrable.Deferrable,
+        deferrable: Deferrable.INITIALLY_IMMEDIATE,
+        allowNull: false,
       },
       judulArtikel: {
         type: DataTypes.STRING,
