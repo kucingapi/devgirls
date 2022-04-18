@@ -13,12 +13,30 @@ module.exports = (sequelize, DataTypes) => {
   }
   Acara.init(
     {
-      judulAcara: DataTypes.STRING,
-      deskripsiAcara: DataTypes.STRING,
-      fotoAcara: DataTypes.STRING,
-      tanggalPendaftaran: DataTypes.DATE,
-      tanggalAcara: DataTypes.DATE,
-      poin: DataTypes.DATE,
+      judulAcara: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      deskripsiAcara: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      fotoAcara: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      tanggalPendaftaran: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      tanggalAcara: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      poin: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,
