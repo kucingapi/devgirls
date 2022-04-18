@@ -13,10 +13,24 @@ module.exports = (sequelize, DataTypes) => {
   }
   Anggota.init(
     {
-      namaAnggota: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      jenisAnggota: DataTypes.STRING,
+      namaAnggota: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      jenisAnggota: {
+        type: DataTypes.STRING,
+        defaultValue: 'anggota',
+        allowNull: false,
+      },
     },
     {
       sequelize,
