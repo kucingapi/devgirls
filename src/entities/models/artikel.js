@@ -13,14 +13,20 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
   }
   Acara.init(
     {
-      pembuatArtikel:{
-        model:'anggota',
-        key:'id',
+      pembuatArtikel: {
+        model: 'anggota',
+        key: 'id',
         type: DataTypes.INTEGER,
-        deferrable: Deferrable.Deferrable
+        deferrable: Deferrable.Deferrable,
       },
-      judulArtikel: DataTypes.STRING,
-      deskripsiArtikel: DataTypes.STRING,
+      judulArtikel: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      deskripsiArtikel: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       fotoArtikel: DataTypes.STRING,
     },
     {
