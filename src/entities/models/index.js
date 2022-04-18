@@ -1,10 +1,9 @@
-'use strict';
-
-const fs = require('fs');
-const path = require('path');
 const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const db = {};
+const acara = require('./acara');
+const artikel = require('./artikel');
+const anggota = require('./anggota');
+const pendaftar = require('./pendaftar');
+const model = [acara, artikel, anggota, pendaftar];
 
 const dotenv = require('dotenv');
 const env = dotenv.config().parsed;
@@ -14,24 +13,8 @@ const sequelize = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   dialect: 'postgres',
 });
-
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes, Sequelize.Deferrable);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+model.forEach((item) => {
+  item(sequelize, Sequelize.DataTypes, Sequelize.Deferrable);
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+module.exports = { sequelize, Sequelize };
