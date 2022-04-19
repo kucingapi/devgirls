@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'anggota',
         allowNull: false,
       },
+      poin: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,

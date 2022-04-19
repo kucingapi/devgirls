@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.post('/', (req,res) => {
+  res.send("hello world");
 });
 
 module.exports = app;
