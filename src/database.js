@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const acara = require('./acara');
-const artikel = require('./artikel');
-const anggota = require('./anggota');
-const pendaftar = require('./pendaftar');
+const acara = require('./entities/models/acara');
+const artikel = require('./entities/models/artikel');
+const anggota = require('./entities/models/anggota');
+const pendaftar = require('./entities/models/pendaftar');
 const model = [acara, artikel, anggota, pendaftar];
 
 const dotenv = require('dotenv');

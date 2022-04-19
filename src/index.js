@@ -1,4 +1,4 @@
-const { sequelize } = require('./entities/models');
+const { sequelize } = require('./database');
 const app = require('./app');
 const port = 3000;
 const nodeEnv = process.env.NODE_ENV.trim();
