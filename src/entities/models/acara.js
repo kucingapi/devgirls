@@ -16,9 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       judulAcara: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate:{
+          len: [3, 255],
+        }
       },
       deskripsiAcara: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       fotoAcara: {
