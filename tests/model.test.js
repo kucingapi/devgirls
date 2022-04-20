@@ -28,7 +28,7 @@ describe('Anggota Model', () => {
   });
 });
 
-describe('acara Model', () => {
+describe('Acara Model', () => {
   let newAcara, newAnggota;
   beforeEach(async () => {
     newAnggota = await anggota.create({
