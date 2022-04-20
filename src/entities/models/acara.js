@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
     },
     {
       sequelize,
-      tableName: 'Acara',
+      tableName: 'acara',
       modelName: 'Acara',
     }
   );

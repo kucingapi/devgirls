@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
   Acara.init(
     {
       pembuatArtikel: {
-        model: 'anggota',
+        model: 'Anggota',
         key: 'id',
         type: DataTypes.INTEGER,
         deferrable: Deferrable.INITIALLY_IMMEDIATE,
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
     },
     {
       sequelize,
-      tableName: 'Artikel',
+      tableName: 'artikel',
       modelName: 'Artikel',
     }
   );

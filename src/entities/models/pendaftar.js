@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
     },
     {
       sequelize,
-      tableName: 'Pendaftar',
+      tableName: 'pendaftar',
       modelName: 'Pendaftar',
     }
   );
