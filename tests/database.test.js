@@ -1,7 +1,6 @@
-const { sequelize } = require("../src/database");
+const { sequelize } = require('../src/database');
 
-
-describe('Database Connection Test', () => {
+describe('Database Connection', () => {
   it('should not throw an error when connecting', async () => {
     let error = false;
     try {
