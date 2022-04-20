@@ -1,4 +1,5 @@
-const { sequelize } = require('../src/entities/models');
+const { sequelize } = require("../src/database");
+
 
 describe('Database Connection Test', () => {
   it('should not throw an error when connecting', async () => {
