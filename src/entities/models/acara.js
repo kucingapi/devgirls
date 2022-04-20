@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes, Deferrable) => {
   class Acara extends Model {
     /**
      * Helper method for defining associations.
@@ -13,12 +13,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   Acara.init(
     {
+      pembuatAcara: {
+        model: 'anggota',
+        key: 'id',
+        type: DataTypes.INTEGER,
+        deferrable: Deferrable.INITIALLY_IMMEDIATE,
+        allowNull: false,
+      },
       judulAcara: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
+        validate: {
           len: [3, 255],
-        }
+        },
       },
       deskripsiAcara: {
         type: DataTypes.TEXT,

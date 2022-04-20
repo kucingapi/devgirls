@@ -38,6 +38,7 @@ describe('Acara Model', () => {
     });
     newAcara = await acara.create({
       judulAcara: 'acara 1',
+			pembuatAcara: newAnggota.id,
       deskripsiAcara: 'acara ini adalah',
       fotoAcara: 'htakljdfa',
       tanggalPendaftaran: new Date(),
@@ -52,7 +53,7 @@ describe('Acara Model', () => {
   });
 
   it('should create 1 data', async () => {
-    const createdAcara = await anggota.findByPk(newAcara.id);
+    const createdAcara = await acara.findByPk(newAcara.id);
     expect(createdAcara).not.toEqual(null);
     expect(typeof createdAcara).toBe('object');
   });

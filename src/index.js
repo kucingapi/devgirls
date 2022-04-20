@@ -6,7 +6,7 @@ const nodeEnv = process.env.NODE_ENV.trim();
 // Data Base connection
 app.listen(port, async () => {
   if (nodeEnv == 'sync') {
-    await sequelize.sync({alter : true}).catch((error) => {
+    await sequelize.sync({ force: true }).catch((error) => {
       console.error('Unable to connect to the database:', error);
     });
   } else {
