@@ -7,29 +7,32 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate() {
-      // define association here
+    static associate({ Anggota, ArtikelKategori }) {
+      this.belongsTo(Anggota, { foreignKey: 'pembuatArtikel', as: 'pembuat' });
+      this.hasMany(ArtikelKategori, { foreignKey: 'idArtikel', as: 'artikelKategori' });
     }
   }
   Acara.init(
     {
       pembuatArtikel: {
-        model: 'Anggota',
-        key: 'id',
+        references: {
+          model: 'anggota',
+          key: 'id',
+          deferrable: Deferrable.INITIALLY_IMMEDIATE,
+        },
         type: DataTypes.INTEGER,
-        deferrable: Deferrable.INITIALLY_IMMEDIATE,
         allowNull: false,
       },
       judulArtikel: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
+        validate: {
           len: [3, 255],
-        }
+        },
       },
       deskripsiArtikel: {
         type: DataTypes.TEXT,
-        validate:{
+        validate: {
           len: [10, 255],
         },
         allowNull: false,
