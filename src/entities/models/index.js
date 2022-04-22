@@ -1,11 +1,11 @@
 const { sequelize, Sequelize } = require('../../database');
-const actor = require('./actor');
-const movie = require('./movie');
+const acara = require('./acara');
+const anggota = require('./anggota');
 
-const Movie = sequelize.define('movie', movie(Sequelize.DataTypes));
-const Actor = sequelize.define('actor', actor(Sequelize.DataTypes));
+const Acara = sequelize.define('acara', acara(Sequelize.DataTypes));
+const Anggota = sequelize.define('anggota', anggota(Sequelize.DataTypes));
 
-Movie.belongsToMany(Actor, { through: 'actor_movies' });
-Actor.belongsToMany(Movie, { through: 'actor_movies' });
+Anggota.hasMany(Acara);
+Acara.belongsTo(Anggota);
 
 module.exports = { sequelize, Sequelize };
