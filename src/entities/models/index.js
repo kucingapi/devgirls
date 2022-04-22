@@ -15,13 +15,15 @@ Acara.belongsTo(Anggota);
 Anggota.hasMany(Artikel);
 Artikel.belongsTo(Anggota);
 
-Anggota.belongsToMany(Acara, {through: 'pendaftar'})
-Acara.belongsToMany(Anggota, {through: 'pendaftar'})
+Anggota.belongsToMany(Acara, { through: 'pendaftar' });
+Acara.belongsToMany(Anggota, { through: 'pendaftar' });
 
-Kategori.belongsToMany(Acara, {through: 'kategori_acara'})
-Acara.belongsToMany(Kategori, {through: 'kategori_acara'})
+Kategori.belongsToMany(Acara, { through: 'kategori_acara' });
+Acara.belongsToMany(Kategori, { through: 'kategori_acara' });
 
-Artikel.belongsToMany(Acara, {through: 'kategori_artikel'})
-Acara.belongsToMany(Artikel, {through: 'kategori_artikel'})
+Artikel.belongsToMany(Acara, { through: 'kategori_artikel' });
+Acara.belongsToMany(Artikel, { through: 'kategori_artikel' });
 
-module.exports = { sequelize, Sequelize };
+const model = { Acara, Anggota, Artikel, Kategori };
+
+module.exports = { sequelize, Sequelize, model };
