@@ -1,4 +1,4 @@
-const { Anggota, Acara } = require('../src/entities');
+const { Anggota, Acara, Kategori } = require('../src/entities');
 
 describe('Anggota Model', () => {
   let newAnggota;
@@ -68,5 +68,20 @@ describe('Acara Model', () => {
     await newAnggota.addAcaras([newAcara]);
     const manyAcara = await newAnggota.countAcaras();
     expect(manyAcara).toEqual(1);
+  });
+
+  it('should has many to many relation with anggota', async () => {
+    await newAcara.addAnggota(newAnggota);
+    console.log(newAcara);
+    const anggotaAcara = await newAcara.getAnggota();
+    expect(anggotaAcara).not.toEqual(null);
+    expect(typeof anggotaAcara).toBe('object');
+  });
+
+  it('should has many to many relation with kategori', async () => {
+    const newKategori = await Kategori.create({label: "ui/ux"});
+    await newAcara.addKategori(newKategori);
+    const kategoriAcara = await newAcara.countKategoris();
+    expect(kategoriAcara).toEqual(1);
   });
 });
