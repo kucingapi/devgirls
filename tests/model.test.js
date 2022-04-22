@@ -72,7 +72,6 @@ describe('Acara Model', () => {
 
   it('should has many to many relation with anggota', async () => {
     await newAcara.addAnggota(newAnggota);
-    console.log(newAcara);
     const anggotaAcara = await newAcara.getAnggota();
     expect(anggotaAcara).not.toEqual(null);
     expect(typeof anggotaAcara).toBe('object');

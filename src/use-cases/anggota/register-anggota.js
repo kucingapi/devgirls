@@ -1,4 +1,3 @@
-
 const makeRegisterAnggota = (
   bcrypt,
   register,
