@@ -1,9 +1,9 @@
-const { Anggota } = require("../entities");
-
+const { Anggota } = require('../entities');
 /**
- *
- * @param {{ nama: String, email: String, password: String }} anggotaInfo
- * @returns {Promise} 
+ * @param {String} nama
+ * @param {String} email
+ * @param {String} password
+ * @returns {Promise}
  */
 const createAnggota = async (nama, email, password) => {
   return await Anggota.create({
