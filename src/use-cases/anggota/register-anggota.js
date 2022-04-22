@@ -1,9 +1,11 @@
-const { createAnggota } = require('../../data-access/anggota.db');
-const { UseCaseError, sequelizeErrorHandler } = require('../../entities/error');
-const { register } = require('../../validation/anggota.validation');
-const bcrypt = require('bcryptjs');
 
-const makeRegisterAnggota = () => {
+const makeRegisterAnggota = (
+  bcrypt,
+  register,
+  UseCaseError,
+  sequelizeErrorHandler,
+  createAnggota
+) => {
   return async function registerAnggota({ body }) {
     const validation = register.validate(body);
     if (validation.error)
