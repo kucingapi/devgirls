@@ -1,4 +1,4 @@
-const { Anggota, Acara, Kategori } = require('../src/entities');
+const { Anggota, Acara, Kategori, Artikel } = require('../src/entities');
 
 describe('Anggota Model', () => {
   let newAnggota;
@@ -85,3 +85,39 @@ describe('Acara Model', () => {
     expect(kategoriAcara).toEqual(1);
   });
 });
+
+describe('Artikel Model', () => {
+  let newAnggota, newArtikel;
+  beforeEach(async () => {
+    newAnggota = await Anggota.create({
+      namaAnggota: 'test',
+      email: 'novel@gmail.com',
+      password: '12345',
+    });
+    newArtikel = await Artikel.create({
+      judulArtikel: 'test',
+      deskripsiArtikel: 'ini adalah artikel',
+      fotoArtikel: 'test'
+    });
+  });
+
+  afterEach(async () => {
+    await newAnggota.destroy();
+    await newArtikel.destroy();
+  });
+
+  it('should create 1 data', async () => {
+    const createdArtikel = await Artikel.findByPk(newArtikel.id);
+    expect(createdArtikel).not.toEqual(null);
+    expect(typeof createdArtikel).toBe('object');
+  });
+
+  it('should has many to 1 realtion with user', async () => {
+    await newAnggota.addArtikel(newArtikel);
+    const manyArtikel = await newAnggota.countArtikels();
+    expect(manyArtikel).toEqual(1);
+    // expect(createdArtikel).not.toEqual(null);
+    // expect(typeof createdArtikel).toBe('object');
+  });
+
+})
