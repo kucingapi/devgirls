@@ -1,9 +1,9 @@
-const { anggota, acara } = require('../src/entities');
+const { Anggota, Acara } = require('../src/entities');
 
 describe('Anggota Model', () => {
   let newAnggota;
   beforeEach(async () => {
-    newAnggota = await anggota.create({
+    newAnggota = await Anggota.create({
       namaAnggota: 'test',
       email: 'novel@gmail.com',
       password: '12345',
@@ -15,7 +15,7 @@ describe('Anggota Model', () => {
   });
 
   it('should create 1 data', async () => {
-    const createdAnggota = await anggota.findByPk(newAnggota.id);
+    const createdAnggota = await Anggota.findByPk(newAnggota.id);
     expect(createdAnggota).not.toEqual(null);
     expect(typeof createdAnggota).toBe('object');
   });
@@ -31,14 +31,13 @@ describe('Anggota Model', () => {
 describe('Acara Model', () => {
   let newAcara, newAnggota;
   beforeEach(async () => {
-    newAnggota = await anggota.create({
+    newAnggota = await Anggota.create({
       namaAnggota: 'test',
       email: 'novel@gmail.com',
       password: '12345',
     });
-    newAcara = await acara.create({
+    newAcara = await Acara.create({
       judulAcara: 'acara 1',
-			pembuatAcara: newAnggota.id,
       deskripsiAcara: 'acara ini adalah',
       fotoAcara: 'htakljdfa',
       tanggalPendaftaran: new Date(),
@@ -53,7 +52,7 @@ describe('Acara Model', () => {
   });
 
   it('should create 1 data', async () => {
-    const createdAcara = await acara.findByPk(newAcara.id);
+    const createdAcara = await Acara.findByPk(newAcara.id);
     expect(createdAcara).not.toEqual(null);
     expect(typeof createdAcara).toBe('object');
   });
@@ -63,5 +62,11 @@ describe('Acara Model', () => {
     await newAcara.save();
     await newAcara.reload();
     expect(newAcara.judulAcara).toEqual('change');
+  });
+
+  it('can be add to anggota', async () => {
+    await newAnggota.addAcaras([newAcara]);
+    const manyAcara = await newAnggota.countAcaras();
+    expect(manyAcara).toEqual(1);
   });
 });
