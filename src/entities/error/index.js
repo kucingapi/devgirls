@@ -1,15 +1,4 @@
-class UseCaseError extends Error {
-  constructor(statusCode, message, ...params) {
-    // Pass remaining arguments (including vendor specific ones) to parent constructor
-    super(...params);
+const UseCaseError = require('./use-case.error');
+const sequelizeErrorHandler = require('./sequelize-handler.error');
 
-    // Maintains proper stack trace for where our error was thrown (only available on V8)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, UseCaseError);
-    }
-    this.message = message;
-    this.statusCode = statusCode;
-  }
-}
-
-module.exports = UseCaseError;
+module.exports = { UseCaseError, sequelizeErrorHandler };
