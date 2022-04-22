@@ -116,8 +116,5 @@ describe('Artikel Model', () => {
     await newAnggota.addArtikel(newArtikel);
     const manyArtikel = await newAnggota.countArtikels();
     expect(manyArtikel).toEqual(1);
-    // expect(createdArtikel).not.toEqual(null);
-    // expect(typeof createdArtikel).toBe('object');
   });
-
 })
