@@ -16,6 +16,7 @@ module.exports = (controller) => (req, res) => {
         const body = {
           success: true,
           code: 200,
+          ...httpResponse.body
         };
         const { name, data } = httpResponse.header;
         res.header(name, data).send(body);

@@ -3,7 +3,8 @@ const makeRegisterAnggota = (
   register,
   validate,
   sequelizeErrorHandler,
-  createAnggota
+  createAnggota,
+  loginAnggota
 ) => {
   return async function registerAnggota({ body }) {
     validate(register, body);
@@ -13,7 +14,8 @@ const makeRegisterAnggota = (
     const anggota = await createAnggota(nama, email, hashedPassword).catch(
       sequelizeErrorHandler
     );
-    return anggota;
+    const loggedAnggota = await loginAnggota({ body: { email, password } });
+    return { ...loggedAnggota, body: { id: anggota.id } };
   };
 };
 module.exports = makeRegisterAnggota;

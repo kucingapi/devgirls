@@ -13,14 +13,6 @@ const makeRegisterAnggota = require('./register-anggota');
 const makeLoginAnggota = require('./login-anggota');
 const validate = require('../../validation/validate');
 
-const registerAnggota = makeRegisterAnggota(
-  bcrypt,
-  register,
-  validate,
-  sequelizeErrorHandler,
-  createAnggota
-);
-
 const loginAnggota = makeLoginAnggota(
   bcrypt,
   login,
@@ -30,6 +22,15 @@ const loginAnggota = makeLoginAnggota(
   UseCaseError,
   jwt,
   TOKEN_SECRET
+);
+
+const registerAnggota = makeRegisterAnggota(
+  bcrypt,
+  register,
+  validate,
+  sequelizeErrorHandler,
+  createAnggota,
+  loginAnggota
 );
 
 const anggotaService = Object.freeze({

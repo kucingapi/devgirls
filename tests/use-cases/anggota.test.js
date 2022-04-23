@@ -15,18 +15,23 @@ describe('register anggota use cases', () => {
   let newAnggota;
 
   beforeAll(async () => {
-    idAnggota = await registerAnggota({
+    const anggota = await registerAnggota({
       body: {
         nama: 'novel',
         email: 'email@mail.com',
         password: 'passworrd',
       },
     });
-    newAnggota = await Anggota.findByPk(idAnggota.id);
+    idAnggota = anggota.body.id;
+    newAnggota = await Anggota.findByPk(idAnggota);
   });
 
   afterAll(async () => {
-    await newAnggota.destroy();
+    await Anggota.destroy({
+      where: {
+        id: idAnggota,
+      },
+    });
   });
 
   it('should make an anggota', async () => {
@@ -76,16 +81,18 @@ describe('register anggota use cases', () => {
 });
 
 describe('login anggota use cases', () => {
-  let newAnggota, loggedAnggota;
+  let idAnggota, newAnggota, loggedAnggota;
 
   beforeAll(async () => {
-    newAnggota = await registerAnggota({
+    const anggota = await registerAnggota({
       body: {
         nama: 'novel',
         email: 'test2@mail.com',
         password: '12345',
       },
     });
+    idAnggota = anggota.body.id;
+    newAnggota = await Anggota.findOne({ where: { id: idAnggota } });
     loggedAnggota = await loginAnggota({
       body: {
         email: 'test2@mail.com',
@@ -115,14 +122,14 @@ describe('login anggota use cases', () => {
 
   it('should give header with jwt', async () => {
     const { data } = loggedAnggota.header;
-    expect(typeof data).toEqual('string')
+    expect(typeof data).toEqual('string');
   });
 
   it('should have verifiable jwt', async () => {
     const { data } = loggedAnggota.header;
     let verified = false;
     verified = jwt.verify(data, TOKEN_SECRET);
-    
+
     expect(typeof verified).toEqual('object');
   });
 });
