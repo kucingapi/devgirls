@@ -73,8 +73,10 @@ describe('login anggota use cases', () => {
   it('should throw an error when password is less than 5 character', async () => {
     let error = false;
     const loggedAnggota = await loginAnggota({
-      email: 'test@mail.com',
-      password: '1234',
+      body: {
+        email: 'test@mail.com',
+        password: '1234'
+      },
     }).catch((e) => {
       error = e.message.toString().trim();
     });

@@ -6,4 +6,9 @@ const register = Joi.object({
   nama: Joi.string().required(),
 });
 
-module.exports = { register };
+const login = Joi.object({
+  email: Joi.string().required().email(),
+  password: Joi.string().required().min(5),
+});
+
+module.exports = { register, login };
