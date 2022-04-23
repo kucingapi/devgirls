@@ -18,8 +18,7 @@ module.exports = (controller) => (req, res) => {
           code: 200,
         };
         const { name, data } = httpResponse.header;
-        res.header(name, data).send(data);
-        res.status(200).send(body);
+        res.header(name, data).send(body);
       } else {
         const body = {
           success: true,
