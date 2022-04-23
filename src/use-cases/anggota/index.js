@@ -1,7 +1,13 @@
-const { createAnggota } = require('../../data-access/anggota.db');
+const { createAnggota, findAnggota } = require('../../data-access/anggota.db');
 const { sequelizeErrorHandler } = require('../../entities/error');
-const { register } = require('../../validation/anggota.validation');
+const { register, login } = require('../../validation/anggota.validation');
 const bcrypt = require('bcryptjs');
+const { UseCaseError } = require('../../entities/error');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+const env = dotenv.config().parsed;
+const { TOKEN_SECRET } = env;
 
 const makeRegisterAnggota = require('./register-anggota');
 const makeLoginAnggota = require('./login-anggota');
@@ -15,15 +21,24 @@ const registerAnggota = makeRegisterAnggota(
   createAnggota
 );
 
-const loginAnggota = makeLoginAnggota();
+const loginAnggota = makeLoginAnggota(
+  bcrypt,
+  login,
+  validate,
+  sequelizeErrorHandler,
+  findAnggota,
+  UseCaseError,
+  jwt,
+  TOKEN_SECRET
+);
 
 const anggotaService = Object.freeze({
   registerAnggota,
-  loginAnggota
+  loginAnggota,
 });
 
 module.exports = anggotaService;
 module.exports = {
   registerAnggota,
-  loginAnggota
+  loginAnggota,
 };

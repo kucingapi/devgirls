@@ -1,20 +1,17 @@
-const { findAnggota } = require('../../data-access/anggota.db');
-const { login } = require('../../validation/anggota.validation');
-const validate = require('../../validation/validate');
-const bcrypt = require('bcryptjs');
-const { UseCaseError } = require('../../entities/error');
-const jwt = require('jsonwebtoken');
-
-const dotenv = require('dotenv');
-
-const env = dotenv.config().parsed;
-const { TOKEN_SECRET } = env;
-
-const makeLoginAnggota = () => {
+const makeLoginAnggota = (
+  bcrypt,
+  login,
+  validate,
+  sequelizeErrorHandler,
+  findAnggota,
+  UseCaseError,
+  jwt,
+  TOKEN_SECRET
+) => {
   return async function loginAnggota({ body }) {
     validate(login, body);
     const { email, password } = body;
-    const anggotas = await findAnggota(email);
+    const anggotas = await findAnggota(email).catch(sequelizeErrorHandler);
     const anggota = anggotas[0];
     const validPassword = await bcrypt.compare(password, anggota.password);
     if (!validPassword) throw new UseCaseError(400, 'password is wrong');
