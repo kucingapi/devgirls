@@ -3,6 +3,12 @@ const {
   registerAnggota,
   loginAnggota,
 } = require('../../src/use-cases/anggota');
+const jwt = require('jsonwebtoken');
+
+const dotenv = require('dotenv');
+
+const env = dotenv.config().parsed;
+const { TOKEN_SECRET } = env;
 
 describe('register anggota use cases', () => {
   let idAnggota;
@@ -70,12 +76,34 @@ describe('register anggota use cases', () => {
 });
 
 describe('login anggota use cases', () => {
+  let newAnggota, loggedAnggota;
+
+  beforeAll(async () => {
+    newAnggota = await registerAnggota({
+      body: {
+        nama: 'novel',
+        email: 'test2@mail.com',
+        password: '12345',
+      },
+    });
+    loggedAnggota = await loginAnggota({
+      body: {
+        email: 'test2@mail.com',
+        password: '12345',
+      },
+    });
+  });
+
+  afterAll(async () => {
+    await newAnggota.destroy();
+  });
+
   it('should throw an error when password is less than 5 character', async () => {
     let error = false;
     await loginAnggota({
       body: {
         email: 'test@mail.com',
-        password: '1234'
+        password: '1234',
       },
     }).catch((e) => {
       error = e.message.toString().trim();
@@ -83,5 +111,18 @@ describe('login anggota use cases', () => {
     expect(error).toEqual(
       '"password" length must be at least 5 characters long'
     );
+  });
+
+  it('should give header with jwt', async () => {
+    const { data } = loggedAnggota.header;
+    expect(typeof data).toEqual('string')
+  });
+
+  it('should have verifiable jwt', async () => {
+    const { data } = loggedAnggota.header;
+    let verified = false;
+    verified = jwt.verify(data, TOKEN_SECRET);
+    
+    expect(typeof verified).toEqual('object');
   });
 });

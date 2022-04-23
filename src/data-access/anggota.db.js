@@ -13,6 +13,20 @@ const createAnggota = async (nama, email, password) => {
   });
 };
 
+/**
+ * @param {String} email
+ * @param {String} password
+ * @returns {Promise}
+ */
+const findAnggota = async (email) => {
+  return await Anggota.findAll({
+    where: {
+      email: email,
+    },
+  });
+};
+
 module.exports = {
   createAnggota,
+  findAnggota,
 };
