@@ -4,6 +4,7 @@ const { register } = require('../../validation/anggota.validation');
 const bcrypt = require('bcryptjs');
 
 const makeRegisterAnggota = require('./register-anggota');
+const makeLoginAnggota = require('./login-anggota');
 
 const registerAnggota = makeRegisterAnggota(
   bcrypt,
@@ -13,11 +14,15 @@ const registerAnggota = makeRegisterAnggota(
   createAnggota
 );
 
+const loginAnggota = makeLoginAnggota();
+
 const anggotaService = Object.freeze({
   registerAnggota,
+  loginAnggota
 });
 
 module.exports = anggotaService;
 module.exports = {
   registerAnggota,
+  loginAnggota
 };

@@ -1,7 +1,10 @@
 const { Anggota } = require('../../src/entities');
-const { registerAnggota } = require('../../src/use-cases/anggota');
+const {
+  registerAnggota,
+  loginAnggota,
+} = require('../../src/use-cases/anggota');
 
-describe('registerAnggota use cases', () => {
+describe('register anggota use cases', () => {
   let idAnggota;
   let newAnggota;
 
@@ -57,6 +60,21 @@ describe('registerAnggota use cases', () => {
         email: 'email1@mail.com',
         password: '1234',
       },
+    }).catch((e) => {
+      error = e.message.toString().trim();
+    });
+    expect(error).toEqual(
+      '"password" length must be at least 5 characters long'
+    );
+  });
+});
+
+describe('login anggota use cases', () => {
+  it('should throw an error when password is less than 5 character', async () => {
+    let error = false;
+    const loggedAnggota = await loginAnggota({
+      email: 'test@mail.com',
+      password: '1234',
     }).catch((e) => {
       error = e.message.toString().trim();
     });
