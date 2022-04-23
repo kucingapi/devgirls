@@ -72,7 +72,7 @@ describe('register anggota use cases', () => {
 describe('login anggota use cases', () => {
   it('should throw an error when password is less than 5 character', async () => {
     let error = false;
-    const loggedAnggota = await loginAnggota({
+    await loginAnggota({
       body: {
         email: 'test@mail.com',
         password: '1234'

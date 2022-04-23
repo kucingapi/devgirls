@@ -1,15 +1,16 @@
 const { createAnggota } = require('../../data-access/anggota.db');
-const { UseCaseError, sequelizeErrorHandler } = require('../../entities/error');
+const { sequelizeErrorHandler } = require('../../entities/error');
 const { register } = require('../../validation/anggota.validation');
 const bcrypt = require('bcryptjs');
 
 const makeRegisterAnggota = require('./register-anggota');
 const makeLoginAnggota = require('./login-anggota');
+const validate = require('../../validation/validate');
 
 const registerAnggota = makeRegisterAnggota(
   bcrypt,
   register,
-  UseCaseError,
+  validate,
   sequelizeErrorHandler,
   createAnggota
 );
