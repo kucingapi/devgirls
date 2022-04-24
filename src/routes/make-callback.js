@@ -4,7 +4,7 @@ module.exports = (controller) => (req, res) => {
     query: req.query,
     params: req.params,
     headers: {
-      authToken: req.header('auth-token'),
+      authToken: req.header('authorization'),
     },
   };
   controller(httpRequest)
