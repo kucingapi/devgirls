@@ -21,6 +21,7 @@ const makeLoginAnggota = (
         id: anggota.id,
         email: anggota.email,
         nama: anggota.nama,
+        role: anggota.jenisAnggota
       },
       TOKEN_SECRET
     );
