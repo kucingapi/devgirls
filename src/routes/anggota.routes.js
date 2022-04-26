@@ -1,9 +1,9 @@
 const express = require('express');
 const makeExpressCallback = require('./make-callback');
-const controller = require('../controllers/anggota.controller');
+const anggotaController = require('../controllers/anggota.controller');
 
 const router = express.Router();
-router.route('/register').post(makeExpressCallback(controller.registerAnggota));
-router.route('/login').post(makeExpressCallback(controller.loginAnggota));
+router.route('/register').post(makeExpressCallback(anggotaController.registerAnggota));
+router.route('/login').post(makeExpressCallback(anggotaController.loginAnggota));
 
 module.exports = router;
