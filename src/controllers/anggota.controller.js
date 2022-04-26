@@ -1,6 +1,8 @@
 const { registerAnggota, loginAnggota } = require('../use-cases/anggota');
 
-module.exports = Object.freeze({
+const anggotaController = Object.freeze({
   registerAnggota: (httpRequest) => registerAnggota(httpRequest),
   loginAnggota: (httpRequest) => loginAnggota(httpRequest),
 });
+
+module.exports = anggotaController;
