@@ -6,7 +6,8 @@ const makePengurus = (jwt, UseCaseError, TOKEN_SECRET) => {
     const token = authArray[authArray.length - 1];
     try {
       const jwtPayload = jwt.verify(token, TOKEN_SECRET);
-      console.log(jwtPayload);
+      const role = jwtPayload.role;
+      if (role !== 'pengurus') throw new Error();
     } catch (e) {
       throw new UseCaseError(401, 'Unauthorized');
     }
