@@ -11,9 +11,8 @@ const makeLoginAnggota = (
   return async function loginAnggota({ body }) {
     validate(login, body);
     const { email, password } = body;
-    const anggotas = await findAnggota(email).catch(sequelizeErrorHandler);
-    if (anggotas.length == 0) throw new UseCaseError(404, 'user doesnt exist');
-    const anggota = anggotas[0];
+    const anggota = await findAnggota(email).catch(sequelizeErrorHandler);
+    if (anggota.length == 0) throw new UseCaseError(404, 'user doesnt exist');
     const validPassword = await bcrypt.compare(password, anggota.password);
     if (!validPassword) throw new UseCaseError(400, 'password is wrong');
     const token = jwt.sign(

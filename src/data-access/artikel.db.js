@@ -7,7 +7,7 @@ const { findAnggota } = require('./anggota.db');
  */
 const createArticle = async (email, judul, deskripsi) => {
   const anggota = await findAnggota(email);
-  const artikel = await anggota[0].createArtikel({
+  const artikel = await anggota.createArtikel({
     judulArtikel: judul,
     deskripsiArtikel: deskripsi,
   });

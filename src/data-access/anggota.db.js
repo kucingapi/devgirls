@@ -19,7 +19,7 @@ const createAnggota = async (nama, email, password) => {
  * @returns {Promise}
  */
 const findAnggota = async (email) => {
-  return await Anggota.findAll({
+  return await Anggota.findOne({
     where: {
       email: email,
     },

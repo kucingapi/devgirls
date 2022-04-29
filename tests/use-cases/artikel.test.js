@@ -1,7 +1,7 @@
 const { registerAnggota } = require('../../src/controllers/anggota.controller');
 const { Anggota, Artikel } = require('../../src/entities');
 const { loginAnggota } = require('../../src/use-cases/anggota');
-const { createArtikel } = require('../../src/use-cases/artikel');
+const { addArtikel } = require('../../src/use-cases/artikel');
 
 describe('artikel use cases', () => {
   let idAnggota;
@@ -34,8 +34,8 @@ describe('artikel use cases', () => {
       },
     });
     const token = loginResult.header.data;
-    const artikel = await createArtikel({
-      header: { authToken: token },
+    const artikel = await addArtikel({
+      headers: { authToken: token },
       body: { title: 'ini adalah title', description: 'ini adalah deskripsi' },
     });
     expect(artikel instanceof Artikel).toBeTruthy();
@@ -50,14 +50,12 @@ describe('artikel use cases', () => {
       },
     });
     const token = loginResult.header.data;
-    await createArtikel({
-      header: { authToken: token },
+    await addArtikel({
+      headers: { authToken: token },
       body: {},
     }).catch(() => {
       error = true;
     });
     expect(error).toBeTruthy();
   });
-
-  
 });
