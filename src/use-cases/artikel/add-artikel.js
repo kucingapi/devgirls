@@ -1,11 +1,5 @@
-const { createArticle } = require('../../data-access/artikel.db');
-const getPayloadJwt = require('../../functions/getPayloadJwt');
-const {
-  createArtikelValidation,
-} = require('../../validation/anggota.validation');
-const validate = require('../../validation/validate');
 
-const makeAddArtikel = () => {
+const makeAddArtikel = (createArticle, getPayloadJwt, createArtikelValidation, validate) => {
   return async function createArtikel({ headers, body }) {
     validate(createArtikelValidation, body);
     const jwtPayload = getPayloadJwt(headers);
