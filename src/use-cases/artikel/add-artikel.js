@@ -1,5 +1,9 @@
-
-const makeAddArtikel = (createArticle, getPayloadJwt, addArtikelValidation, validate) => {
+const makeAddArtikel = (
+  createArticle,
+  getPayloadJwt,
+  addArtikelValidation,
+  validate
+) => {
   return async function addArtikel({ headers, body }) {
     validate(addArtikelValidation, body);
     const jwtPayload = getPayloadJwt(headers);

@@ -1,6 +1,6 @@
 const express = require('express');
 const anggota = require('./anggota.routes');
-const article = require('./article.routes');
+const article = require('./artikel.routes');
 
 const router = express.Router();
 

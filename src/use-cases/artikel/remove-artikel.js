@@ -1,11 +1,9 @@
-const { deleteArtikel } = require('../../data-access/artikel.db');
-const { UseCaseError } = require('../../entities/error');
-const {
+const makeRemoveArtikel = (
+  deleteArtikel,
+  UseCaseError,
   removeArtikelValidation,
-} = require('../../validation/artikel.validation');
-const validate = require('../../validation/validate');
-
-const makeRemoveArtikel = () => {
+  validate
+) => {
   return async function removeArtikel({ body }) {
     validate(removeArtikelValidation, body);
     const { id } = body;
