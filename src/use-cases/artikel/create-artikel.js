@@ -6,9 +6,9 @@ const {
 const validate = require('../../validation/validate');
 
 const makeCreateArtikel = () => {
-  return async function createArtikel({ header, body }) {
+  return async function createArtikel({ headers, body }) {
     validate(createArtikelValidation, body);
-    const jwtPayload = getPayloadJwt(header);
+    const jwtPayload = getPayloadJwt(headers);
     const { title, description } = body;
     const { email } = jwtPayload;
     const artikel = await createArticle(email, title, description);

@@ -41,7 +41,7 @@ describe('artikel use cases', () => {
     expect(artikel instanceof Artikel).toBeTruthy();
   });
 
-  it('should return error when the body not rigth', async () => {
+  it('should return error when the body is not rigth', async () => {
     let error = false;
     const loginResult = await loginAnggota({
       body: {
@@ -53,9 +53,11 @@ describe('artikel use cases', () => {
     await createArtikel({
       header: { authToken: token },
       body: {},
-    }).catch((e) => {
+    }).catch(() => {
       error = true;
     });
     expect(error).toBeTruthy();
   });
+
+  
 });
