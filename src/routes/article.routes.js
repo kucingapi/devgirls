@@ -4,9 +4,7 @@ const pengurusGroup = require('./pengurus.routes');
 
 const router = express.Router();
 
-pengurusGroup.post('/', (req, res) => {
-})
-
+pengurusGroup.post('/',makeExpressCallback());
 router.use(pengurusGroup)
 
 module.exports = router;

@@ -1,11 +1,17 @@
 const { createArticle } = require('../../data-access/artikel.db');
 const getPayloadJwt = require('../../functions/getPayloadJwt');
+const {
+  createArtikelValidation,
+} = require('../../validation/anggota.validation');
+const validate = require('../../validation/validate');
 
 const makeCreateArtikel = () => {
-  return async function createArtikel({ header }) {
+  return async function createArtikel({ header, body }) {
+    validate(createArtikelValidation, body);
     const jwtPayload = getPayloadJwt(header);
+    const { title, description } = body;
     const { email } = jwtPayload;
-    const artikel = await createArticle(email,"testasdfklj","tsdklfjdaesttt");
+    const artikel = await createArticle(email, title, description);
     return artikel;
   };
 };
