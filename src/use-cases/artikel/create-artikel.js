@@ -5,7 +5,7 @@ const {
 } = require('../../validation/anggota.validation');
 const validate = require('../../validation/validate');
 
-const makeCreateArtikel = () => {
+const makeAddArtikel = () => {
   return async function createArtikel({ headers, body }) {
     validate(createArtikelValidation, body);
     const jwtPayload = getPayloadJwt(headers);
@@ -16,4 +16,4 @@ const makeCreateArtikel = () => {
   };
 };
 
-module.exports = makeCreateArtikel;
+module.exports = makeAddArtikel;

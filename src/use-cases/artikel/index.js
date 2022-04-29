@@ -1,8 +1,8 @@
-const makeCreateArtikel = require("./create-artikel");
+const makeAddArtikel = require("./create-artikel");
 
-const createArtikel = makeCreateArtikel();
+const addArtikel = makeAddArtikel();
 
-const artikelService = Object.freeze({ createArtikel });
+const artikelService = Object.freeze({ addArtikel });
 
 module.exports = artikelService
-module.exports = { createArtikel };
+module.exports = { addArtikel };

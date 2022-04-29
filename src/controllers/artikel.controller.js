@@ -1,7 +1,7 @@
-const { createArtikel } = require("../use-cases/artikel");
+const { addArtikel } = require("../use-cases/artikel");
 
 const artikelController = Object.freeze({
-  createArtikel: (httpRequest) => createArtikel(httpRequest),
+  addArtikel: (httpRequest) => addArtikel(httpRequest),
 });
 
 module.exports = artikelController;

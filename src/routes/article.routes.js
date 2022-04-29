@@ -5,7 +5,7 @@ const artikelController = require('../controllers/artikel.controller');
 
 const router = express.Router();
 
-pengurusGroup.post('/',makeExpressCallback(artikelController.createArtikel));
+pengurusGroup.post('/',makeExpressCallback(artikelController.addArtikel));
 router.use(pengurusGroup)
 
 module.exports = router;
