@@ -1,7 +1,7 @@
 
-const makeAddArtikel = (createArticle, getPayloadJwt, createArtikelValidation, validate) => {
-  return async function createArtikel({ headers, body }) {
-    validate(createArtikelValidation, body);
+const makeAddArtikel = (createArticle, getPayloadJwt, addArtikelValidation, validate) => {
+  return async function addArtikel({ headers, body }) {
+    validate(addArtikelValidation, body);
     const jwtPayload = getPayloadJwt(headers);
     const { title, description } = body;
     const { email } = jwtPayload;
