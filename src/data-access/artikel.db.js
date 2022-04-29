@@ -1,8 +1,10 @@
+const { Artikel } = require('../entities');
 const { findAnggota } = require('./anggota.db');
 
 /**
  * @param {String} email
- * @param {String} password
+ * @param {String} judul
+ * @param {String} deskripsi
  * @returns {Promise}
  */
 const createArticle = async (email, judul, deskripsi) => {
@@ -14,4 +16,16 @@ const createArticle = async (email, judul, deskripsi) => {
   return artikel;
 };
 
-module.exports = { createArticle };
+
+/**
+ * @param {number} id
+ * @returns {Promise}
+ */
+const deleteArtikel = async (id) => {
+  return await Artikel.destroy({
+    where: {
+      id: id
+    },
+  });
+};
+module.exports = { createArticle, deleteArtikel };

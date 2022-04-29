@@ -122,4 +122,17 @@ describe('remove artikel use cases', () => {
     expect(error instanceof UseCaseError).toBeTruthy();
     expect(error.message).toBe('"id" is required');
   });
+
+  it('should throw an error when it dosnt exist', async () => {
+    let error = false;
+    try {
+      await removeArtikel({
+        body: {id: 0},
+      });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+    expect(error.message).toBe('artikel is not found');
+  });
 });
