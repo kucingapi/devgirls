@@ -9,7 +9,6 @@ const Anggota = sequelize.define('anggota', anggota(Sequelize.DataTypes));
 const Artikel = sequelize.define('artikel', artikel(Sequelize.DataTypes));
 const Kategori = sequelize.define('kategori', kategori(Sequelize.DataTypes));
 
-
 Anggota.hasMany(Artikel);
 Artikel.belongsTo(Anggota);
 

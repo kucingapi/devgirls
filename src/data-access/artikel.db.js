@@ -16,7 +16,6 @@ const createArticle = async (email, judul, deskripsi) => {
   return artikel;
 };
 
-
 /**
  * @param {number} id
  * @returns {Promise}
@@ -24,8 +23,21 @@ const createArticle = async (email, judul, deskripsi) => {
 const deleteArtikel = async (id) => {
   return await Artikel.destroy({
     where: {
-      id: id
+      id: id,
     },
   });
 };
-module.exports = { createArticle, deleteArtikel };
+
+/**
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @returns {Promise}
+ */
+const getAllArtikel = async (pageNumber, pageSize) => {
+  return await Artikel.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: pageSize,
+    offset: pageNumber,
+  });
+};
+module.exports = { createArticle, deleteArtikel, getAllArtikel };
