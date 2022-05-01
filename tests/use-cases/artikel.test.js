@@ -2,7 +2,11 @@ const { registerAnggota } = require('../../src/controllers/anggota.controller');
 const { Anggota, Artikel } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
 const { loginAnggota } = require('../../src/use-cases/anggota');
-const { addArtikel, removeArtikel } = require('../../src/use-cases/artikel');
+const {
+  addArtikel,
+  removeArtikel,
+  getArtikel,
+} = require('../../src/use-cases/artikel');
 
 describe('add artikel use cases', () => {
   let idAnggota;
@@ -127,12 +131,19 @@ describe('remove artikel use cases', () => {
     let error = false;
     try {
       await removeArtikel({
-        body: {id: 0},
+        body: { id: 0 },
       });
     } catch (e) {
       error = e;
     }
     expect(error instanceof UseCaseError).toBeTruthy();
     expect(error.message).toBe('artikel is not found');
+  });
+});
+
+describe('get artikel use cases', () => {
+  it('should return array', async () => {
+    const artikel = getArtikel({ body: {} });
+    expect(artikel.constructor === Array).toBeTruthy();
   });
 });

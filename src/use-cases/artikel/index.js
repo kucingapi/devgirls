@@ -9,6 +9,7 @@ const { UseCaseError } = require('../../entities/error');
 const {
   removeArtikelValidation,
 } = require('../../validation/artikel.validation');
+const makeGetArtikel = require('./get-artikel');
 
 const addArtikel = makeAddArtikel(
   createArticle,
@@ -24,7 +25,9 @@ const removeArtikel = makeRemoveArtikel(
   validate
 );
 
-const artikelService = Object.freeze({ addArtikel, removeArtikel });
+const getArtikel = makeGetArtikel();
+
+const artikelService = Object.freeze({ addArtikel, removeArtikel, getArtikel });
 
 module.exports = artikelService;
-module.exports = { addArtikel, removeArtikel };
+module.exports = { addArtikel, removeArtikel, getArtikel };
