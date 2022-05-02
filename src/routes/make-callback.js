@@ -16,7 +16,7 @@ module.exports = (controller) => (req, res) => {
         const body = {
           success: true,
           code: 200,
-          ...httpResponse.body
+          ...httpResponse.body,
         };
         const { name, data } = httpResponse.header;
         res.header(name, data).send(body);
@@ -31,6 +31,12 @@ module.exports = (controller) => (req, res) => {
     })
 
     .catch((e) => {
+      if (!e.statusCode) {
+        e.statusCode = 500;
+      }
+      if (!e.message) {
+        e.statusCode = 'something went wrong';
+      }
       res.status(e.statusCode).send({
         success: false,
         code: e.statusCode,

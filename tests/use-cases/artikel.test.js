@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 const { registerAnggota } = require('../../src/controllers/anggota.controller');
 const { Anggota, Artikel } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
@@ -142,8 +143,56 @@ describe('remove artikel use cases', () => {
 });
 
 describe('get artikel use cases', () => {
+  let rows;
+  let pagination;
+
+  beforeEach(async () => {
+    const response = await getArtikel({ query: {} });
+    rows = response.records;
+    pagination = response['_metadata']
+  });
+
   it('should return array', async () => {
-    const artikel = getArtikel({ body: {} });
-    expect(artikel.constructor === Array).toBeTruthy();
+    expect(rows.constructor).toBe(Array);
+  });
+  it('should have id, date, description, title, or empty array', async () => {
+    let hasProperty = true;
+    rows.map((row) => {
+      if (
+        !(
+          row.hasOwnProperty('id') &&
+          row.hasOwnProperty('createdAt') &&
+          row.hasOwnProperty('judulArtikel') &&
+          row.hasOwnProperty('deskripsiArtikel')
+        )
+      )
+        hasProperty = false;
+    });
+    expect(hasProperty).toBeTruthy();
+  });
+
+  it('should filter title & description', async () => {
+    const newArtikel = await Artikel.create({
+      judulArtikel: 'ini test',
+      deskripsiArtikel: 'artikel test',
+      fotoArtikel: 'test',
+    });
+
+    const response = await getArtikel({
+      query: {
+        title: 'test',
+        description: 'test',
+      },
+    });
+
+    newArtikel.destroy();
+    rows = response.records;
+
+    expect(rows.length >= 1).toBeTruthy();
+  });
+  it('should has pagination', () => {
+    expect(typeof pagination.page).toBe('number');
+    expect(typeof pagination.per_page).toBe('number');
+    expect(typeof pagination.total_count).toBe('number');
   });
 });

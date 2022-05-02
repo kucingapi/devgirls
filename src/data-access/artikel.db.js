@@ -1,5 +1,6 @@
 const { Artikel } = require('../entities');
 const { findAnggota } = require('./anggota.db');
+const { Op } = require('sequelize');
 
 /**
  * @param {String} email
@@ -33,11 +34,26 @@ const deleteArtikel = async (id) => {
  * @param {number} pageSize
  * @returns {Promise}
  */
-const getAllArtikel = async (pageNumber, pageSize) => {
+const getAllArtikel = async (
+  pageNumber,
+  pageSize,
+  filterTitle,
+  filterDescription
+) => {
+  const offset = (pageNumber - 1) * pageSize;
   return await Artikel.findAndCountAll({
+    where: {
+      judulArtikel: {
+        [Op.substring]: filterTitle,
+      },
+      deskripsiArtikel: {
+        [Op.substring]: filterDescription,
+      },
+    },
+    attributes: ['id', 'judulArtikel', 'deskripsiArtikel', 'createdAt'],
     order: [['createdAt', 'DESC']],
     limit: pageSize,
-    offset: pageNumber,
+    offset: offset,
   });
 };
 module.exports = { createArticle, deleteArtikel, getAllArtikel };
