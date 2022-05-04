@@ -8,6 +8,7 @@ const {
   removeArtikel,
   getArtikel,
   getArtikelById,
+  updateArtikel,
 } = require('../../src/use-cases/artikel');
 
 describe('add artikel use cases', () => {
@@ -43,7 +44,11 @@ describe('add artikel use cases', () => {
     const token = loginResult.header.data;
     const artikel = await addArtikel({
       headers: { authToken: token },
-      body: { title: 'ini adalah title', description: 'ini adalah deskripsi', photo: 'ini adalah foto' },
+      body: {
+        title: 'ini adalah title',
+        description: 'ini adalah deskripsi',
+        photo: 'ini adalah foto',
+      },
     });
     expect(artikel instanceof Artikel).toBeTruthy();
   });
@@ -91,7 +96,11 @@ describe('remove artikel use cases', () => {
     token = loginResult.header.data;
     artikel = await addArtikel({
       headers: { authToken: token },
-      body: { title: 'ini adalah title', description: 'ini adalah deskripsi', photo: 'ini adalah photo' },
+      body: {
+        title: 'ini adalah title',
+        description: 'ini adalah deskripsi',
+        photo: 'ini adalah photo',
+      },
     });
   });
 
@@ -236,5 +245,48 @@ describe('get artikel by id use cases', () => {
     const id = newArtikel.id;
     const artikel = await getArtikelById({ params: { id: id } });
     expect(artikel instanceof Artikel).toBeTruthy();
+  });
+});
+
+describe('update artikel use case', () => {
+  let newArtikel;
+  beforeAll(async () => {
+    newArtikel = await Artikel.create({
+      judulArtikel: 'test',
+      deskripsiArtikel: 'ini adalah artikel',
+      fotoArtikel: 'test',
+    });
+  });
+
+  afterAll(async () => {
+    await newArtikel.destroy();
+  });
+
+  it('should throw an error when there is no params', async () => {
+    let error = false;
+    try {
+      await updateArtikel({ params: {} });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+
+  it('should change the artikel', async () => {
+    const updatedArtikel = await updateArtikel({
+      params: { id: newArtikel.id },
+      body: { title: 'changed' },
+    });
+    expect(updatedArtikel[0]).toBe(1);
+  });
+  it('should change the artikel title, description, and photo', async () => {
+    await updateArtikel({
+      params: { id: newArtikel.id },
+      body: { title: 'changed', description: 'changed description', photo: 'changed photo' },
+    });
+    await newArtikel.reload()
+    expect(newArtikel.judulArtikel).toBe('changed');
+    expect(newArtikel.deskripsiArtikel).toBe('changed description');
+    expect(newArtikel.fotoArtikel).toBe('changed photo');
   });
 });

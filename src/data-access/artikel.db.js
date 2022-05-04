@@ -6,6 +6,7 @@ const { Op } = require('sequelize');
  * @param {String} email
  * @param {String} judul
  * @param {String} deskripsi
+ * @param {String} photo
  * @returns {Promise}
  */
 const createArticle = async (email, judul, deskripsi, photo) => {
@@ -13,9 +14,31 @@ const createArticle = async (email, judul, deskripsi, photo) => {
   const artikel = await anggota.createArtikel({
     judulArtikel: judul,
     deskripsiArtikel: deskripsi,
-    fotoArtikel: photo
+    fotoArtikel: photo,
   });
   return artikel;
+};
+
+/**
+ * @param {Number} id
+ * @param {String} judul
+ * @param {String} deskripsi
+ * @param {String} photo
+ * @returns {Promise}
+ */
+const changeArtikel = async (id, judul, deskripsi, photo) => {
+  return await Artikel.update(
+    {
+      judulArtikel: judul,
+      deskripsiArtikel: deskripsi,
+      fotoArtikel: photo,
+    },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
 };
 
 /**
@@ -51,7 +74,13 @@ const getAllArtikel = async (
         [Op.substring]: filterDescription,
       },
     },
-    attributes: ['id', 'judulArtikel', 'fotoArtikel', 'deskripsiArtikel', 'createdAt'],
+    attributes: [
+      'id',
+      'judulArtikel',
+      'fotoArtikel',
+      'deskripsiArtikel',
+      'createdAt',
+    ],
     order: [['createdAt', 'DESC']],
     limit: pageSize,
     offset: offset,
@@ -65,4 +94,10 @@ const getAllArtikel = async (
 const findArtikelById = async (id) => {
   return await Artikel.findByPk(id);
 };
-module.exports = { createArticle, deleteArtikel, getAllArtikel, findArtikelById };
+module.exports = {
+  createArticle,
+  deleteArtikel,
+  getAllArtikel,
+  findArtikelById,
+  changeArtikel
+};
