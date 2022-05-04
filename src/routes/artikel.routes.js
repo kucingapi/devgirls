@@ -1,6 +1,6 @@
 const express = require('express');
 const makeExpressCallback = require('./make-callback');
-const pengurusGroup = require('./pengurus.routes');
+const pengurusGroup = require('./pengurus-group.routes');
 const artikelController = require('../controllers/artikel.controller');
 
 const router = express.Router();
