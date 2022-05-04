@@ -14,7 +14,7 @@ const {
 } = require('../../validation/artikel.validation');
 const { addArtikelValidation } = require('../../validation/artikel.validation');
 const { deleteArtikel } = require('../../data-access/artikel.db');
-const { UseCaseError } = require('../../entities/error');
+const { UseCaseError, sequelizeErrorHandler } = require('../../entities/error');
 const {
   removeArtikelValidation,
 } = require('../../validation/artikel.validation');
@@ -50,7 +50,8 @@ const updateArtikel = makeUpdateArtikel(
   findArtikelById,
   getArtikelByIdValidation,
   updateArtikelValidation,
-  validate
+  validate,
+  sequelizeErrorHandler
 );
 
 const artikelService = Object.freeze({

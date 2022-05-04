@@ -9,6 +9,7 @@ router.get('/',makeExpressCallback(artikelController.getArtikel))
 router.get('/:id',makeExpressCallback(artikelController.getArtikelById))
 pengurusGroup.post('/',makeExpressCallback(artikelController.addArtikel));
 pengurusGroup.delete('/',makeExpressCallback(artikelController.removeArtikel));
+pengurusGroup.put('/:id',makeExpressCallback(artikelController.updateArtikel))
 
 router.use(pengurusGroup)
 
