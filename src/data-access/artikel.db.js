@@ -56,4 +56,12 @@ const getAllArtikel = async (
     offset: offset,
   });
 };
-module.exports = { createArticle, deleteArtikel, getAllArtikel };
+
+/**
+ * @param {number} id
+ * @returns {Promise}
+ */
+const findArtikelById = async (id) => {
+  return await Artikel.findByPk(id);
+};
+module.exports = { createArticle, deleteArtikel, getAllArtikel, findArtikelById };

@@ -9,4 +9,8 @@ const removeArtikelValidation = Joi.object({
   id: Joi.number().integer().min(0).required(),
 });
 
-module.exports = { addArtikelValidation, removeArtikelValidation };
+const getArtikelByIdValidation = Joi.object({
+  id: Joi.number().integer().min(0).required(),
+});
+
+module.exports = { addArtikelValidation, removeArtikelValidation, getArtikelByIdValidation };

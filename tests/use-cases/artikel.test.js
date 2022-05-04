@@ -7,6 +7,7 @@ const {
   addArtikel,
   removeArtikel,
   getArtikel,
+  getArtikelById,
 } = require('../../src/use-cases/artikel');
 
 describe('add artikel use cases', () => {
@@ -149,7 +150,7 @@ describe('get artikel use cases', () => {
   beforeEach(async () => {
     const response = await getArtikel({ query: {} });
     rows = response.records;
-    pagination = response['_metadata']
+    pagination = response['_metadata'];
   });
 
   it('should return array', async () => {
@@ -194,5 +195,46 @@ describe('get artikel use cases', () => {
     expect(typeof pagination.page).toBe('number');
     expect(typeof pagination.per_page).toBe('number');
     expect(typeof pagination.total_count).toBe('number');
+  });
+});
+
+describe('get artikel by id use cases', () => {
+  let newArtikel;
+  beforeAll(async () => {
+    newArtikel = await Artikel.create({
+      judulArtikel: 'test',
+      deskripsiArtikel: 'ini adalah artikel',
+      fotoArtikel: 'test',
+    });
+  });
+
+  afterAll(async () => {
+    await newArtikel.destroy();
+  });
+
+  it('should throw an error when there is no params', async () => {
+    let error = false;
+    try {
+      await getArtikelById({ params: {} });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+
+  it('should throw an error when the id is not found', async () => {
+    let error = false;
+    try {
+      await getArtikelById({ params: { id: 2000 } });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+
+  it('should found 1 id when the id is found', async () => {
+    const id = newArtikel.id;
+    const artikel = await getArtikelById({ params: { id: id } });
+    expect(artikel instanceof Artikel).toBeTruthy();
   });
 });

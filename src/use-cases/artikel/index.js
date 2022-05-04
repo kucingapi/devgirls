@@ -10,6 +10,7 @@ const {
   removeArtikelValidation,
 } = require('../../validation/artikel.validation');
 const makeGetArtikel = require('./get-artikel');
+const makeGetArtikelById = require('./get-artikel-by-id');
 
 const addArtikel = makeAddArtikel(
   createArticle,
@@ -26,8 +27,9 @@ const removeArtikel = makeRemoveArtikel(
 );
 
 const getArtikel = makeGetArtikel();
+const getArtikelById = makeGetArtikelById();
 
-const artikelService = Object.freeze({ addArtikel, removeArtikel, getArtikel });
+const artikelService = Object.freeze({ addArtikel, removeArtikel, getArtikel, getArtikelById });
 
 module.exports = artikelService;
-module.exports = { addArtikel, removeArtikel, getArtikel };
+module.exports = { addArtikel, removeArtikel, getArtikel, getArtikelById };

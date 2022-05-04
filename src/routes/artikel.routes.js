@@ -5,7 +5,7 @@ const artikelController = require('../controllers/artikel.controller');
 
 const router = express.Router();
 
-router.get('/',makeExpressCallback(artikelController.getArtikel) )
+router.get('/',makeExpressCallback(artikelController.getArtikel))
 pengurusGroup.post('/',makeExpressCallback(artikelController.addArtikel));
 pengurusGroup.delete('/',makeExpressCallback(artikelController.removeArtikel));
 
