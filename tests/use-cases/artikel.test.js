@@ -43,7 +43,7 @@ describe('add artikel use cases', () => {
     const token = loginResult.header.data;
     const artikel = await addArtikel({
       headers: { authToken: token },
-      body: { title: 'ini adalah title', description: 'ini adalah deskripsi' },
+      body: { title: 'ini adalah title', description: 'ini adalah deskripsi', photo: 'ini adalah foto' },
     });
     expect(artikel instanceof Artikel).toBeTruthy();
   });
@@ -91,7 +91,7 @@ describe('remove artikel use cases', () => {
     token = loginResult.header.data;
     artikel = await addArtikel({
       headers: { authToken: token },
-      body: { title: 'ini adalah title', description: 'ini adalah deskripsi' },
+      body: { title: 'ini adalah title', description: 'ini adalah deskripsi', photo: 'ini adalah photo' },
     });
   });
 

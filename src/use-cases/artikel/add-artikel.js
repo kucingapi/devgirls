@@ -7,9 +7,9 @@ const makeAddArtikel = (
   return async function addArtikel({ headers, body }) {
     validate(addArtikelValidation, body);
     const jwtPayload = getPayloadJwt(headers);
-    const { title, description } = body;
+    const { title, description, photo } = body;
     const { email } = jwtPayload;
-    const artikel = await createArticle(email, title, description);
+    const artikel = await createArticle(email, title, description, photo);
     return artikel;
   };
 };

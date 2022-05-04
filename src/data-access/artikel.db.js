@@ -8,11 +8,12 @@ const { Op } = require('sequelize');
  * @param {String} deskripsi
  * @returns {Promise}
  */
-const createArticle = async (email, judul, deskripsi) => {
+const createArticle = async (email, judul, deskripsi, photo) => {
   const anggota = await findAnggota(email);
   const artikel = await anggota.createArtikel({
     judulArtikel: judul,
     deskripsiArtikel: deskripsi,
+    fotoArtikel: photo
   });
   return artikel;
 };
