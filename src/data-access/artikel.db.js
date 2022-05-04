@@ -51,7 +51,7 @@ const getAllArtikel = async (
         [Op.substring]: filterDescription,
       },
     },
-    attributes: ['id', 'judulArtikel', 'deskripsiArtikel', 'createdAt'],
+    attributes: ['id', 'judulArtikel', 'fotoArtikel', 'deskripsiArtikel', 'createdAt'],
     order: [['createdAt', 'DESC']],
     limit: pageSize,
     offset: offset,
