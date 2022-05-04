@@ -1,7 +1,5 @@
-const { getAllArtikel } = require('../../data-access/artikel.db');
-const { UseCaseError } = require('../../entities/error');
 
-const makeGetArtikel = () => {
+const makeGetArtikel = (getAllArtikel, UseCaseError) => {
   return async function getArtikel({ query }) {
     const page = query.page || 1;
     const filterTitle = query.title || '';

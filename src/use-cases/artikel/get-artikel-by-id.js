@@ -1,14 +1,5 @@
-const {
-  getAllArtikel,
-  findArtikelById,
-} = require('../../data-access/artikel.db');
-const { UseCaseError } = require('../../entities/error');
-const {
-  getArtikelByIdValidation,
-} = require('../../validation/artikel.validation');
-const validate = require('../../validation/validate');
 
-const makeGetArtikelById = () => {
+const makeGetArtikelById = (findArtikelById, getArtikelByIdValidation, validate, UseCaseError) => {
   return async function getArtikelById({ params }) {
     validate(getArtikelByIdValidation, params);
     const { id } = params;

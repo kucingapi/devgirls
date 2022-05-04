@@ -3,6 +3,13 @@ const { createArticle } = require('../../data-access/artikel.db');
 const getPayloadJwt = require('../../functions/getPayloadJwt');
 const validate = require('../../validation/validate');
 const makeRemoveArtikel = require('./remove-artikel');
+const { getAllArtikel } = require('../../data-access/artikel.db');
+const {
+  findArtikelById,
+} = require('../../data-access/artikel.db');
+const {
+  getArtikelByIdValidation,
+} = require('../../validation/artikel.validation');
 const { addArtikelValidation } = require('../../validation/artikel.validation');
 const { deleteArtikel } = require('../../data-access/artikel.db');
 const { UseCaseError } = require('../../entities/error');
@@ -26,8 +33,8 @@ const removeArtikel = makeRemoveArtikel(
   validate
 );
 
-const getArtikel = makeGetArtikel();
-const getArtikelById = makeGetArtikelById();
+const getArtikel = makeGetArtikel(getAllArtikel, UseCaseError);
+const getArtikelById = makeGetArtikelById(findArtikelById, getArtikelByIdValidation, validate, UseCaseError);
 
 const artikelService = Object.freeze({ addArtikel, removeArtikel, getArtikel, getArtikelById });
 
