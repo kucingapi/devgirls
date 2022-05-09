@@ -1,11 +1,9 @@
-const { findAnggotaById } = require('../../data-access/anggota.db');
-const sequelizeErrorHandler = require('../../entities/error/sequelize-handler.error');
-const {
+const makeAddPengurus = (
+  sequelizeErrorHandler,
+  findAnggotaById,
   addPengurusValidation,
-} = require('../../validation/pengurus.validation');
-const validate = require('../../validation/validate');
-
-const makeAddPengurus = () => {
+  validate
+) => {
   return async function addPengurus({ params }) {
     validate(addPengurusValidation, params);
     const { id } = params;
@@ -15,7 +13,6 @@ const makeAddPengurus = () => {
     pengguna.set({
       jenisAnggota: 'pengurus',
     });
-    console.log(pengguna.jenisAnggota);
     await pengguna.save();
     return pengguna;
   };
