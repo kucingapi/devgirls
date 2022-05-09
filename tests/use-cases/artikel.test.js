@@ -165,6 +165,7 @@ describe('get artikel use cases', () => {
   it('should return array', async () => {
     expect(rows.constructor).toBe(Array);
   });
+
   it('should have id, date, description, title, or empty array', async () => {
     let hasProperty = true;
     rows.map((row) => {
@@ -200,6 +201,7 @@ describe('get artikel use cases', () => {
 
     expect(rows.length >= 1).toBeTruthy();
   });
+
   it('should has pagination', () => {
     expect(typeof pagination.page).toBe('number');
     expect(typeof pagination.per_page).toBe('number');

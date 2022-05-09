@@ -1,4 +1,3 @@
-
 const makeGetArtikel = (getAllArtikel, UseCaseError) => {
   return async function getArtikel({ query }) {
     const page = query.page || 1;
