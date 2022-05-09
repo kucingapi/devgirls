@@ -1,7 +1,5 @@
-const { getAllAnggota } = require("../../data-access/anggota.db");
-const { UseCaseError } = require("../../entities/error");
 
-const makeGetAnggota = () => {
+const makeGetAnggota = (getAllAnggota ,UseCaseError) => {
   return async function getAnggota({ query }) {
     const page = query.page || 1;
     const filterEmail = query.email || '';

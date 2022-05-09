@@ -5,9 +5,7 @@ const makeExpressCallback = require('./make-callback');
 
 const router = express.Router();
 
-pengurusGroup.get('/anggota', (req, res) => {
-  res.send(req.body);
-});
+pengurusGroup.get('/anggota', makeExpressCallback(pengurusController.getAnggota));
 router.use(pengurusGroup);
 
 module.exports = router;
