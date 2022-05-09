@@ -1,4 +1,3 @@
-
 const makeGetAnggota = (getAllAnggota ,UseCaseError) => {
   return async function getAnggota({ query }) {
     const page = query.page || 1;

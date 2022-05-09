@@ -1,6 +1,8 @@
 /* eslint-disable no-prototype-builtins */
 const { Anggota } = require('../../src/entities');
-const { getAnggota } = require('../../src/use-cases/pengurus');
+const { UseCaseError } = require('../../src/entities/error');
+const { registerAnggota } = require('../../src/use-cases/anggota');
+const { getAnggota, addPengurus } = require('../../src/use-cases/pengurus');
 
 describe('get anggota usecase', () => {
   let rows;
@@ -26,7 +28,7 @@ describe('get anggota usecase', () => {
           row.hasOwnProperty('namaAnggota') &&
           row.hasOwnProperty('password') &&
           row.hasOwnProperty('jenisAnggota') &&
-          row.hasOwnProperty('poin') 
+          row.hasOwnProperty('poin')
         )
       )
         hasProperty = false;
@@ -58,5 +60,43 @@ describe('get anggota usecase', () => {
     expect(typeof pagination.page).toBe('number');
     expect(typeof pagination.per_page).toBe('number');
     expect(typeof pagination.total_count).toBe('number');
+  });
+});
+
+describe('make pengurus usecase', () => {
+  let idAnggota;
+  let newAnggota;
+
+  beforeAll(async () => {
+    const anggota = await registerAnggota({
+      body: {
+        nama: 'novel',
+        email: 'email@mail.com',
+        password: 'passworrd',
+      },
+    });
+    idAnggota = anggota.body.id;
+    newAnggota = await Anggota.findByPk(idAnggota);
+  });
+
+  afterAll(async () => {
+    await Anggota.destroy({
+      where: {
+        id: idAnggota,
+      },
+    });
+  });
+  it('should throw an error when there is no id', async () => {
+    let error = false;
+    await addPengurus({ params: {} }).catch((e) => {
+      error = e;
+    });
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+  it('should make anggota to pengurus', async () => {
+    expect(newAnggota.jenisAnggota).toBe('anggota');
+    await addPengurus({ params: { id: idAnggota } });
+    await newAnggota.reload();
+    expect(newAnggota.jenisAnggota).toBe('pengurus');
   });
 });

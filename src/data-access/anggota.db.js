@@ -28,6 +28,15 @@ const findAnggota = async (email) => {
 };
 
 /**
+ * @param {String} id
+ * @param {String} password
+ * @returns {Promise}
+ */
+const findAnggotaById = async (id) => {
+  return await Anggota.findByPk(id);
+};
+
+/**
  * @param {number} pageNumber
  * @param {number} pageSize
  * @returns {Promise}
@@ -52,5 +61,6 @@ const getAllAnggota = async (pageNumber, pageSize, filterEmail, filterName) => {
 module.exports = {
   createAnggota,
   findAnggota,
-  getAllAnggota
+  findAnggotaById,
+  getAllAnggota,
 };
