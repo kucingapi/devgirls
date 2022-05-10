@@ -26,4 +26,8 @@ module.exports = (DataTypes) => ({
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  aktif: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
 });
