@@ -6,7 +6,7 @@ const addAcaraValidation = Joi.object({
   photo: Joi.string().required().min(5),
   registrationDate: Joi.date().min(Date.now()),
   endDate: Joi.date().min(Date.now()),
-  poin: Joi.number().min(0)
+  poin: Joi.number().min(0),
 });
 
 module.exports = { addAcaraValidation };
