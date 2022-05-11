@@ -9,4 +9,8 @@ const addAcaraValidation = Joi.object({
   poin: Joi.number().min(0),
 });
 
-module.exports = { addAcaraValidation };
+const getAcaraByIdValidation = Joi.object({
+  id: Joi.number().integer().min(0).required(),
+});
+
+module.exports = { addAcaraValidation, getAcaraByIdValidation };

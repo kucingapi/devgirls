@@ -23,7 +23,7 @@ const createAcara = async (
     fotoAcara: photo,
     tanggalPendaftaran: registrationDate,
     tanggalAcara: endDate,
-    poin
+    poin,
   });
 };
 
@@ -56,8 +56,8 @@ const getAllAcara = async (
  * @param {number} id
  * @returns {Promise}
  */
-const findById = async (id) => {
+const findAcaraById = async (id) => {
   return await Acara.findByPk(id);
 };
 
-module.exports = { createAcara, getAllAcara, findById };
+module.exports = { createAcara, getAllAcara, findAcaraById };

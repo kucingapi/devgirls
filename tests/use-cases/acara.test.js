@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 const { Acara } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
-const { addAcara, getAcara } = require('../../src/use-cases/acara');
+const { addAcara, getAcara, getAcaraById } = require('../../src/use-cases/acara');
 
 describe('add acara use case', () => {
   it('should throw an error when body is empty', async () => {
@@ -25,11 +25,11 @@ describe('add acara use case', () => {
         photo: 'link photo',
         registrationDate: yesterday,
         endDate: yesterday,
-        poin: 100
+        poin: 100,
       },
     }).catch((e) => {
       error = e;
-		});
+    });
     expect(error instanceof UseCaseError).toBeTruthy();
   });
 
@@ -43,11 +43,11 @@ describe('add acara use case', () => {
         photo: 'link photo',
         registrationDate: tomorrow,
         endDate: tomorrow,
-        poin: 100
+        poin: 100,
       },
     });
     expect(newAcara instanceof Acara).toBeTruthy();
-		newAcara.destroy()
+    newAcara.destroy();
   });
 });
 
@@ -64,7 +64,7 @@ describe('get acara usecase', () => {
   it('should return array', async () => {
     expect(rows.constructor).toBe(Array);
   });
-  
+
   it('should have id, date, description, title, or empty array', async () => {
     let hasProperty = true;
     rows.map((row) => {
@@ -111,3 +111,45 @@ describe('get acara usecase', () => {
   });
 });
 
+describe('get acara by id usecase', () => {
+  let newAcara;
+  beforeAll(async () => {
+    newAcara = await Acara.create({
+      judulAcara: 'ini test',
+      deskripsiAcara: 'artikel test',
+      fotoAcara: 'test',
+      tanggalPendaftaran: new Date(),
+      tanggalAcara: new Date(),
+      poin: 200,
+    });
+  });
+
+  afterAll(async () => {
+    await newAcara.destroy();
+  });
+
+  it('should throw an error when there is no params', async () => {
+    let error = false;
+    try {
+      await getAcaraById({ params: {} });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+
+  it('should throw an error when the id is not found', async () => {
+    let error = false;
+    try {
+      await getAcaraById({ params: { id: 2000 } });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+  });
+  it('should found 1 id when the id is found', async () => {
+    const id = newAcara.id;
+    const acara = await getAcaraById({ params: { id: id } });
+    expect(acara instanceof Acara).toBeTruthy();
+  });
+});
