@@ -1,6 +1,7 @@
+/* eslint-disable no-prototype-builtins */
 const { Acara } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
-const { addAcara } = require('../../src/use-cases/acara');
+const { addAcara, getAcara } = require('../../src/use-cases/acara');
 
 describe('add acara use case', () => {
   it('should throw an error when body is empty', async () => {
@@ -24,6 +25,7 @@ describe('add acara use case', () => {
         photo: 'link photo',
         registrationDate: yesterday,
         endDate: yesterday,
+        poin: 100
       },
     }).catch((e) => {
       error = e;
@@ -41,9 +43,71 @@ describe('add acara use case', () => {
         photo: 'link photo',
         registrationDate: tomorrow,
         endDate: tomorrow,
+        poin: 100
       },
     });
     expect(newAcara instanceof Acara).toBeTruthy();
 		newAcara.destroy()
   });
 });
+
+describe('get acara usecase', () => {
+  let rows;
+  let pagination;
+
+  beforeEach(async () => {
+    const response = await getAcara({ query: {} });
+    rows = response.records;
+    pagination = response['_metadata'];
+  });
+
+  it('should return array', async () => {
+    expect(rows.constructor).toBe(Array);
+  });
+  
+  it('should have id, date, description, title, or empty array', async () => {
+    let hasProperty = true;
+    rows.map((row) => {
+      if (
+        !(
+          row.hasOwnProperty('id') &&
+          row.hasOwnProperty('createdAt') &&
+          row.hasOwnProperty('judulAcara') &&
+          row.hasOwnProperty('deskripsiAcara')
+        )
+      )
+        hasProperty = false;
+    });
+    expect(hasProperty).toBeTruthy();
+  });
+
+  it('should filter title & description', async () => {
+    const newAcara = await Acara.create({
+      judulAcara: 'ini test',
+      deskripsiAcara: 'artikel test',
+      fotoAcara: 'test',
+      tanggalPendaftaran: new Date(),
+      tanggalAcara: new Date(),
+      poin: 200,
+    });
+
+    const response = await getAcara({
+      query: {
+        title: 'test',
+        description: 'test',
+      },
+    });
+
+    newAcara.destroy();
+    rows = response.records;
+
+    expect(rows.length >= 1).toBeTruthy();
+  });
+
+  it('should has pagination', () => {
+    expect(typeof pagination.page).toBe('number');
+    expect(typeof pagination.per_page).toBe('number');
+    expect(typeof pagination.total_count).toBe('number');
+  });
+});
+

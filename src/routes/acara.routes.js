@@ -5,7 +5,7 @@ const pengurusGroup = require('./pengurus-group.routes');
 
 const router = express.Router();
 
-router.post('/', makeExpressCallback(acaraController.addAcara));
+pengurusGroup.post('/', makeExpressCallback(acaraController.addAcara));
 
 router.use(pengurusGroup);
 

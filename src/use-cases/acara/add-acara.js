@@ -6,13 +6,14 @@ const validate = require('../../validation/validate');
 const makeAddAcara = () => {
   return async function addAcara({ body }) {
     validate(addAcaraValidation, body);
-    const { title, description, photo, registrationDate, endDate } = body;
+    const { title, description, photo, registrationDate, endDate, poin } = body;
     const newAcara = await createAcara(
       title,
       description,
       photo,
       registrationDate,
-      endDate
+      endDate,
+      poin
     ).catch(sequelizeErrorHandler);
     return newAcara;
   };
