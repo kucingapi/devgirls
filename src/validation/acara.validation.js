@@ -13,4 +13,12 @@ const getAcaraByIdValidation = Joi.object({
   id: Joi.number().integer().min(0).required(),
 });
 
-module.exports = { addAcaraValidation, getAcaraByIdValidation };
+const removeAcaraValidation = Joi.object({
+  id: Joi.number().integer().min(0).required(),
+});
+
+module.exports = {
+  addAcaraValidation,
+  getAcaraByIdValidation,
+  removeAcaraValidation,
+};

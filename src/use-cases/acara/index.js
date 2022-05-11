@@ -1,12 +1,19 @@
 const makeAddAcara = require('./add-acara');
 const makeGetAcara = require('./get-acara');
 const makeGetAcaraById = require('./get-acara-by-id');
+const makeRemoveAcara = require('./remove-acara');
 
 const addAcara = makeAddAcara();
 const getAcara = makeGetAcara();
 const getAcaraById = makeGetAcaraById();
+const removeAcara = makeRemoveAcara();
 
-const acaraService = Object.freeze({ addAcara, getAcara, getAcaraById });
+const acaraService = Object.freeze({
+  addAcara,
+  getAcara,
+  getAcaraById,
+  removeAcara,
+});
 
 module.exports = acaraService;
-module.exports = { addAcara, getAcara, getAcaraById };
+module.exports = { addAcara, getAcara, getAcaraById, removeAcara };

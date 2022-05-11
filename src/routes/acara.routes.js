@@ -13,6 +13,7 @@ const router = express.Router();
 router.get('/:id', makeExpressCallback(acaraController.getAcaraById));
 router.get('/', makeExpressCallback(acaraController.getAcara));
 pengurusGroup.post('/', makeExpressCallback(acaraController.addAcara));
+pengurusGroup.delete('/', makeExpressCallback(acaraController.removeAcara));
 
 router.use(pengurusGroup);
 

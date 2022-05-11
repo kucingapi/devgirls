@@ -1,7 +1,12 @@
 /* eslint-disable no-prototype-builtins */
 const { Acara } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
-const { addAcara, getAcara, getAcaraById } = require('../../src/use-cases/acara');
+const {
+  addAcara,
+  getAcara,
+  getAcaraById,
+  removeAcara,
+} = require('../../src/use-cases/acara');
 
 describe('add acara use case', () => {
   it('should throw an error when body is empty', async () => {
@@ -151,5 +156,56 @@ describe('get acara by id usecase', () => {
     const id = newAcara.id;
     const acara = await getAcaraById({ params: { id: id } });
     expect(acara instanceof Acara).toBeTruthy();
+  });
+});
+
+describe('remove artikel use case', () => {
+  let newAcara;
+  beforeAll(async () => {
+    newAcara = await Acara.create({
+      judulAcara: 'ini test',
+      deskripsiAcara: 'artikel test',
+      fotoAcara: 'test',
+      tanggalPendaftaran: new Date(),
+      tanggalAcara: new Date(),
+      poin: 200,
+    });
+  });
+
+  afterAll(async () => {
+    await newAcara.destroy();
+  });
+
+  it('should return artikel id', async () => {
+    const id = await removeAcara({
+      body: { id: newAcara.id },
+    });
+    expect(typeof id).toBe('number');
+  });
+
+  it('should return error when the id is empty', async () => {
+    let error = false;
+    try {
+      await removeAcara({
+        body: {},
+      });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+    expect(error.message).toBe('"id" is required');
+  });
+
+  it('should throw an error when it dosnt exist', async () => {
+    let error = false;
+    try {
+      await removeAcara({
+        body: { id: 0 },
+      });
+    } catch (e) {
+      error = e;
+    }
+    expect(error instanceof UseCaseError).toBeTruthy();
+    expect(error.message).toBe('acara is not found');
   });
 });

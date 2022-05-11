@@ -60,4 +60,16 @@ const findAcaraById = async (id) => {
   return await Acara.findByPk(id);
 };
 
-module.exports = { createAcara, getAllAcara, findAcaraById };
+/**
+ * @param {number} id
+ * @returns {Promise}
+ */
+const deleteAcara = async (id) => {
+  return await Acara.destroy({
+    where: {
+      id: id,
+    },
+  });
+};
+
+module.exports = { createAcara, getAllAcara, findAcaraById, deleteAcara };
