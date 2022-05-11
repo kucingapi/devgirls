@@ -1,7 +1,8 @@
-const { addAcara } = require('../use-cases/acara');
+const { addAcara, getAcara } = require('../use-cases/acara');
 
 const acaraController = Object.freeze({
-  addAcara,
+  addAcara: (httpRequest) => addAcara(httpRequest),
+  getAcara: (httpRequest) => getAcara(httpRequest),
 });
 
 module.exports = acaraController;
