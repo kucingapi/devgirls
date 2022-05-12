@@ -5,7 +5,12 @@ const {
 } = require('../../validation/artikel.validation');
 const validate = require('../../validation/validate');
 
-const makeRemoveAcara = () => {
+const makeRemoveAcara = (
+  deleteAcara,
+  UseCaseError,
+  removeArtikelValidation,
+  validate
+) => {
   return async function removeAcara({ body }) {
     validate(removeArtikelValidation, body);
     const { id } = body;

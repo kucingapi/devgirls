@@ -1,17 +1,13 @@
-const { findAcaraById } = require('../../data-access/acara.db');
-const {
+const makeRegisterAcara = (
+  findAcaraById,
   findAnggotaById,
-  findAnggota,
-} = require('../../data-access/anggota.db');
-const { sequelizeErrorHandler, UseCaseError } = require('../../entities/error');
-const getPayloadJwt = require('../../functions/getPayloadJwt');
-const {
+  sequelizeErrorHandler,
+  UseCaseError,
+  getPayloadJwt,
   getAcaraByIdValidation,
   userValidation,
-} = require('../../validation/acara.validation');
-const validate = require('../../validation/validate');
-
-const makeRegisterAcara = () =>
+  validate
+) =>
   async function registerAcara({ params, headers }) {
     validate(getAcaraByIdValidation, params);
     validate(userValidation, headers);

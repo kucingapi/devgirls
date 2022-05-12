@@ -1,7 +1,4 @@
-const { getAllAcara } = require('../../data-access/acara.db');
-const UseCaseError = require('../../entities/error/use-case.error');
-
-const makeGetAcara = () => {
+const makeGetAcara = (getAllAcara, UseCaseError) => {
   return async function getAcara({ query }) {
     const page = query.page || 1;
     const filterTitle = query.title || '';

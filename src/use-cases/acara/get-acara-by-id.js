@@ -1,11 +1,12 @@
-const { findAcaraById } = require('../../data-access/acara.db');
-const { findAnggotaById } = require('../../data-access/anggota.db');
-const { sequelizeErrorHandler, UseCaseError } = require('../../entities/error');
-const getPayloadJwt = require('../../functions/getPayloadJwt');
-const { getAcaraByIdValidation } = require('../../validation/acara.validation');
-const validate = require('../../validation/validate');
 
-const makeGetAcaraById = () => {
+const makeGetAcaraById = (
+  findAcaraById,
+  sequelizeErrorHandler,
+  UseCaseError,
+  getPayloadJwt,
+  getAcaraByIdValidation,
+  validate
+) => {
   return async function getAcaraById({ params, headers }) {
     validate(getAcaraByIdValidation, params);
     const { id } = params;
@@ -19,7 +20,7 @@ const makeGetAcaraById = () => {
       throw new UseCaseError(404, 'acara not found');
     }
     const registered = await acara.hasAnggota(user);
-    return {...acara.dataValues, registered};
+    return { ...acara.dataValues, registered };
   };
 };
 

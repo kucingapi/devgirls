@@ -3,11 +3,26 @@ const makeGetAcara = require('./get-acara');
 const makeGetAcaraById = require('./get-acara-by-id');
 const makeRegisterAcara = require('./register-acara');
 const makeRemoveAcara = require('./remove-acara');
-const { createAcara } = require('../../data-access/acara.db');
+const {
+  createAcara,
+  findAcaraById,
+  deleteAcara,
+} = require('../../data-access/acara.db');
 const { sequelizeErrorHandler } = require('../../entities/error');
-const { addAcaraValidation } = require('../../validation/acara.validation');
+const {
+  addAcaraValidation,
+  getAcaraByIdValidation,
+  userValidation,
+} = require('../../validation/acara.validation');
 const validate = require('../../validation/validate');
 const schedule = require('node-schedule');
+const { getAllAcara } = require('../../data-access/acara.db');
+const UseCaseError = require('../../entities/error/use-case.error');
+const getPayloadJwt = require('../../functions/getPayloadJwt');
+const {
+  removeArtikelValidation,
+} = require('../../validation/artikel.validation');
+const { findAnggotaById } = require('../../data-access/anggota.db');
 
 const addAcara = makeAddAcara(
   createAcara,
@@ -16,10 +31,31 @@ const addAcara = makeAddAcara(
   validate,
   schedule
 );
-const getAcara = makeGetAcara();
-const getAcaraById = makeGetAcaraById();
-const removeAcara = makeRemoveAcara();
-const registerAcara = makeRegisterAcara();
+const getAcara = makeGetAcara(getAllAcara, UseCaseError);
+const getAcaraById = makeGetAcaraById(
+  findAcaraById,
+  sequelizeErrorHandler,
+  UseCaseError,
+  getPayloadJwt,
+  getAcaraByIdValidation,
+  validate
+);
+const removeAcara = makeRemoveAcara(
+  deleteAcara,
+  UseCaseError,
+  removeArtikelValidation,
+  validate
+);
+const registerAcara = makeRegisterAcara(
+  findAcaraById,
+  findAnggotaById,
+  sequelizeErrorHandler,
+  UseCaseError,
+  getPayloadJwt,
+  getAcaraByIdValidation,
+  userValidation,
+  validate
+);
 
 const acaraService = Object.freeze({
   addAcara,
