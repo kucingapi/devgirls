@@ -3,8 +3,19 @@ const makeGetAcara = require('./get-acara');
 const makeGetAcaraById = require('./get-acara-by-id');
 const makeRegisterAcara = require('./register-acara');
 const makeRemoveAcara = require('./remove-acara');
+const { createAcara } = require('../../data-access/acara.db');
+const { sequelizeErrorHandler } = require('../../entities/error');
+const { addAcaraValidation } = require('../../validation/acara.validation');
+const validate = require('../../validation/validate');
+const schedule = require('node-schedule');
 
-const addAcara = makeAddAcara();
+const addAcara = makeAddAcara(
+  createAcara,
+  sequelizeErrorHandler,
+  addAcaraValidation,
+  validate,
+  schedule
+);
 const getAcara = makeGetAcara();
 const getAcaraById = makeGetAcaraById();
 const removeAcara = makeRemoveAcara();
@@ -15,8 +26,14 @@ const acaraService = Object.freeze({
   getAcara,
   getAcaraById,
   removeAcara,
-	registerAcara
+  registerAcara,
 });
 
 module.exports = acaraService;
-module.exports = { addAcara, getAcara, getAcaraById, removeAcara, registerAcara };
+module.exports = {
+  addAcara,
+  getAcara,
+  getAcaraById,
+  removeAcara,
+  registerAcara,
+};

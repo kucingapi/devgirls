@@ -141,7 +141,7 @@ describe('get acara by id usecase', () => {
   it('should throw an error when there is no params', async () => {
     let error = false;
     try {
-      await getAcaraById({ params: {} });
+      await getAcaraById({ params: {}, headers: {} });
     } catch (e) {
       error = e;
     }
@@ -151,7 +151,7 @@ describe('get acara by id usecase', () => {
   it('should throw an error when the id is not found', async () => {
     let error = false;
     try {
-      await getAcaraById({ params: { id: 2000 } });
+      await getAcaraById({ headers: {}, params: { id: 2000 } });
     } catch (e) {
       error = e;
     }
@@ -159,8 +159,8 @@ describe('get acara by id usecase', () => {
   });
   it('should found 1 id when the id is found', async () => {
     const id = newAcara.id;
-    const acara = await getAcaraById({ params: { id: id } });
-    expect(acara instanceof Acara).toBeTruthy();
+    const acara = await getAcaraById({ params: { id: id }, headers: {} });
+    expect(typeof acara).toBe('object');
   });
 });
 
