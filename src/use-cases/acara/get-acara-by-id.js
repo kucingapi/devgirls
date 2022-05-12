@@ -1,4 +1,3 @@
-
 const makeGetAcaraById = (
   findAcaraById,
   sequelizeErrorHandler,

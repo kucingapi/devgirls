@@ -23,6 +23,7 @@ const {
   removeArtikelValidation,
 } = require('../../validation/artikel.validation');
 const { findAnggotaById } = require('../../data-access/anggota.db');
+const makeGetAcaraFromAnggota = require('./get-anggota-acara');
 
 const addAcara = makeAddAcara(
   createAcara,
@@ -56,6 +57,14 @@ const registerAcara = makeRegisterAcara(
   userValidation,
   validate
 );
+const getAcaraFromAnggota = makeGetAcaraFromAnggota(
+  findAnggotaById,
+  sequelizeErrorHandler,
+  UseCaseError,
+  getPayloadJwt,
+  userValidation,
+  validate
+);
 
 const acaraService = Object.freeze({
   addAcara,
@@ -63,6 +72,7 @@ const acaraService = Object.freeze({
   getAcaraById,
   removeAcara,
   registerAcara,
+  getAcaraFromAnggota,
 });
 
 module.exports = acaraService;
@@ -72,4 +82,5 @@ module.exports = {
   getAcaraById,
   removeAcara,
   registerAcara,
+  getAcaraFromAnggota,
 };

@@ -7,7 +7,9 @@ const {
   getAcaraById,
   removeAcara,
   registerAcara,
+  getAcaraFromAnggota,
 } = require('../../src/use-cases/acara');
+const makeGetAcaraFromAnggota = require('../../src/use-cases/acara/get-anggota-acara');
 const {
   registerAnggota,
   loginAnggota,
@@ -249,6 +251,7 @@ describe('register acara use case', () => {
     await newAnggota.destroy();
     await newAcara.destroy();
   });
+
   it('should throw an error when there is no params', async () => {
     let error = false;
     await registerAcara({
@@ -293,5 +296,48 @@ describe('register acara use case', () => {
     });
     expect(error instanceof UseCaseError).toBeTruthy();
     expect(error.message).toBe('Already registered');
+  });
+});
+
+describe('get anggota acara use case', () => {
+  let idAnggota, newAnggota, loggedAnggota, token, newAcara;
+
+  beforeAll(async () => {
+    const anggota = await registerAnggota({
+      body: {
+        nama: 'novel',
+        email: 'test2@mail.com',
+        password: '12345',
+      },
+    });
+    idAnggota = anggota.body.id;
+    newAnggota = await Anggota.findOne({ where: { id: idAnggota } });
+    loggedAnggota = await loginAnggota({
+      body: {
+        email: 'test2@mail.com',
+        password: '12345',
+      },
+    });
+    newAcara = await Acara.create({
+      judulAcara: 'ini test',
+      deskripsiAcara: 'artikel test',
+      fotoAcara: 'test',
+      tanggalPendaftaran: new Date(),
+      tanggalAcara: new Date(),
+      poin: 200,
+    });
+    token = loggedAnggota.header.data;
+  });
+
+  afterAll(async () => {
+    await newAnggota.destroy();
+    await newAcara.destroy();
+  });
+
+  it('should return an array', async () => {
+    const acaras = await getAcaraFromAnggota({
+      headers: { authToken: token },
+    });
+    expect(acaras.constructor).toBe(Array);
   });
 });
