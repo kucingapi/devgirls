@@ -67,6 +67,7 @@ describe('Acara Model', () => {
   it('can be add to anggota', async () => {
     await newAnggota.addAcaras([newAcara]);
     const manyAcara = await newAnggota.countAcaras();
+    const anggota = await Anggota.findByPk(1);
     expect(manyAcara).toEqual(1);
   });
 

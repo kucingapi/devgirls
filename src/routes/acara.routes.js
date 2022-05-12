@@ -12,6 +12,11 @@ const router = express.Router();
 
 router.get('/:id', makeExpressCallback(acaraController.getAcaraById));
 router.get('/', makeExpressCallback(acaraController.getAcara));
+router.post(
+  '/:id',
+  makeExpressMiddlewareCallback(middlewareController.auth),
+  makeExpressCallback(acaraController.registerAcara)
+);
 pengurusGroup.post('/', makeExpressCallback(acaraController.addAcara));
 pengurusGroup.delete('/', makeExpressCallback(acaraController.removeAcara));
 

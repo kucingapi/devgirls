@@ -17,8 +17,13 @@ const removeAcaraValidation = Joi.object({
   id: Joi.number().integer().min(0).required(),
 });
 
+const userValidation = Joi.object({
+  authToken: Joi.string().min(10)
+});
+
 module.exports = {
   addAcaraValidation,
   getAcaraByIdValidation,
   removeAcaraValidation,
+  userValidation,
 };
