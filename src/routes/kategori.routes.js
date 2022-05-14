@@ -8,6 +8,7 @@ const kategoriController = require('../controllers/kategori.controller');
 pengurusGroup.use(makeExpressMiddlewareCallback(middlewareController.auth));
 pengurusGroup.use(makeExpressMiddlewareCallback(middlewareController.pengurus));
 pengurusGroup.post('/', makeExpressCallback(kategoriController.addKategori));
+pengurusGroup.get('/', makeExpressCallback(kategoriController.getKategori));
 
 const router = express.Router();
 
