@@ -1,6 +1,7 @@
 const { Artikel } = require('../entities');
 const { findAnggota } = require('./anggota.db');
 const { Op } = require('sequelize');
+const artikel = require('../entities/models/artikel');
 
 /**
  * @param {String} email
@@ -92,12 +93,14 @@ const getAllArtikel = async (
  * @returns {Promise}
  */
 const findArtikelById = async (id) => {
-  return await Artikel.findByPk(id);
+  const artikel = await Artikel.findByPk(id);
+  const kategori = await artikel.getKategoris();
+  return { ...artikel.dataValues, kategori };
 };
 module.exports = {
   createArticle,
   deleteArtikel,
   getAllArtikel,
   findArtikelById,
-  changeArtikel
+  changeArtikel,
 };

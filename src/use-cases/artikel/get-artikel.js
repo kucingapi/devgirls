@@ -14,9 +14,12 @@ const makeGetArtikel = (getAllArtikel, UseCaseError) => {
     });
     const manyPage = Math.ceil(count / pageSize);
 
-    const manyArtikel = rows.map((artikel) => {
-      return artikel.dataValues;
-    });
+    const manyArtikel = await Promise.all(
+      rows.map(async (artikel) => {
+        const kategori = await artikel.getKategoris();
+        return { ...artikel.dataValues, kategori };
+      })
+    );
 
     const pagination = {
       page: manyPage,

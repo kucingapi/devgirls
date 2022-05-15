@@ -14,16 +14,20 @@ const makeGetAcara = (getAllAcara, UseCaseError) => {
     });
     const manyPage = Math.ceil(count / pageSize);
 
-    const manyArtikel = rows.map((acara) => {
-      return acara.dataValues;
-    });
+    const manyAcara = await Promise.all(
+      rows.map(async (acara) => {
+        const kategori = await acara.getKategoris();
+        return {...acara.dataValues,kategori};
+      })
+    );
+    console.log(manyAcara);
 
     const pagination = {
       page: manyPage,
       per_page: pageSize,
       total_count: count,
     };
-    return { _metadata: pagination, records: manyArtikel };
+    return { _metadata: pagination, records: manyAcara };
   };
 };
 

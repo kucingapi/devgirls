@@ -57,7 +57,9 @@ const getAllAcara = async (
  * @returns {Promise}
  */
 const findAcaraById = async (id) => {
-  return await Acara.findByPk(id);
+  const acara = await Acara.findByPk(id);
+  const kategori = await acara.getKategoris();
+  return { acara, kategori };
 };
 
 /**

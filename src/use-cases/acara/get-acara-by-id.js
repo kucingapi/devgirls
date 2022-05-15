@@ -14,12 +14,14 @@ const makeGetAcaraById = (
       const payload = getPayloadJwt(headers);
       user = payload.id;
     }
-    const acara = await findAcaraById(id).catch(sequelizeErrorHandler);
+    const { acara, kategori } = await findAcaraById(id).catch(
+      sequelizeErrorHandler
+    );
     if (acara === null) {
       throw new UseCaseError(404, 'acara not found');
     }
     const registered = await acara.hasAnggota(user);
-    return { ...acara.dataValues, registered };
+    return { ...acara.dataValues, registered, kategori };
   };
 };
 
