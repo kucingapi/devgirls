@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon src/index.js",
+    "production": "set NODE_ENV=production && pm2-runtime start src/index.js --env production",
     "sync": "set NODE_ENV=sync && nodemon src/index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
     "lint": "eslint ."
+  },
+  "env_production": {
+    "NODE_ENV": "production"
   },
   "author": "",
   "license": "ISC",
