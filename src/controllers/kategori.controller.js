@@ -1,4 +1,7 @@
-const { addKategori, getKategori } = require('../use-cases/kategori');
+const {
+  addKategori,
+  getKategori,
+} = require('../use-cases/kategori');
 
 const kategoriController = Object.freeze({
   addKategori: (httpRequest) => addKategori(httpRequest),

@@ -6,6 +6,7 @@ const {
   registerAcara,
   getAcaraFromAnggota,
 } = require('../use-cases/acara');
+const { addKategoriAcara } = require('../use-cases/kategori');
 
 const acaraController = Object.freeze({
   addAcara: (httpRequest) => addAcara(httpRequest),
@@ -14,6 +15,7 @@ const acaraController = Object.freeze({
   removeAcara: (httpRequest) => removeAcara(httpRequest),
   registerAcara: (httpRequest) => registerAcara(httpRequest),
   getAcaraFromAnggota: (httpRequest) => getAcaraFromAnggota(httpRequest),
+  addKategoriAcara: (httpRequest) => addKategoriAcara(httpRequest),
 });
 
 module.exports = acaraController;
