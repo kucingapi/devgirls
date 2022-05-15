@@ -5,12 +5,16 @@ const artikelController = require('../controllers/artikel.controller');
 
 const router = express.Router();
 
-router.get('/',makeExpressCallback(artikelController.getArtikel))
-router.get('/:id',makeExpressCallback(artikelController.getArtikelById))
-pengurusGroup.post('/',makeExpressCallback(artikelController.addArtikel));
-pengurusGroup.delete('/',makeExpressCallback(artikelController.removeArtikel));
-pengurusGroup.put('/:id',makeExpressCallback(artikelController.updateArtikel))
+router.get('/', makeExpressCallback(artikelController.getArtikel));
+router.get('/:id', makeExpressCallback(artikelController.getArtikelById));
+pengurusGroup.post(
+  '/kategori/:id',
+  makeExpressCallback(artikelController.addKategoriArtikel)
+);
+pengurusGroup.post('/', makeExpressCallback(artikelController.addArtikel));
+pengurusGroup.delete('/', makeExpressCallback(artikelController.removeArtikel));
+pengurusGroup.put('/:id', makeExpressCallback(artikelController.updateArtikel));
 
-router.use(pengurusGroup)
+router.use(pengurusGroup);
 
 module.exports = router;

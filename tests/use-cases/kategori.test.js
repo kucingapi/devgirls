@@ -1,9 +1,10 @@
-const { Kategori, Acara } = require('../../src/entities');
+const { Kategori, Acara, Artikel } = require('../../src/entities');
 const { UseCaseError } = require('../../src/entities/error');
 const {
   addKategori,
   getKategori,
   addKategoriAcara,
+  addKategoriArtikel,
 } = require('../../src/use-cases/kategori');
 
 describe('add kategori use case', () => {
@@ -82,5 +83,47 @@ describe('create kategori acara use case', () => {
     });
 
     expect(err instanceof UseCaseError).toBeTruthy();
+  });
+});
+
+describe('create kategori artikel use case', () => {
+  let newArtikel;
+  let newKategori;
+  let asc;
+  beforeAll(async () => {
+    newKategori = await addKategori({ body: { label: 'test1234' } });
+    newArtikel = await Artikel.create({
+      judulArtikel: 'ini test',
+      deskripsiArtikel: 'artikel test',
+      fotoArtikel: 'test',
+    });
+    asc = await addKategoriArtikel({
+      params: { id: newKategori.id },
+      body: { id: newArtikel.id },
+    });
+  });
+
+  afterAll(async () => {
+    await newArtikel.destroy();
+    await newKategori.destroy();
+  });
+
+  it('should create asc', async () => {
+    const { kategoriId, artikelId } = asc[0].dataValues;
+    expect(asc.constructor).toBe(Array);
+    expect(kategoriId).toBe(newKategori.id);
+    expect(artikelId).toBe(newArtikel.id);
+  });
+
+  it('should throw error when asc already made', async () => {
+    let err;
+    const asc2 = await addKategoriAcara({
+      params: { id: newKategori.id },
+      body: { id: newArtikel.id },
+    }).catch((e) => {
+      err = e;
+    });
+
+    expect(err instanceof Error).toBeTruthy();
   });
 });

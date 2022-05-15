@@ -18,8 +18,8 @@ Anggota.belongsToMany(Acara, { through: 'pendaftar' });
 Kategori.belongsToMany(Acara, { through: 'kategori_acara' });
 Acara.belongsToMany(Kategori, { through: 'kategori_acara' });
 
-Artikel.belongsToMany(Acara, { through: 'kategori_artikel' });
-Acara.belongsToMany(Artikel, { through: 'kategori_artikel' });
+Artikel.belongsToMany(Kategori, { through: 'kategori_artikel' });
+Kategori.belongsToMany(Artikel, { through: 'kategori_artikel' });
 
 const model = { Acara, Anggota, Artikel, Kategori };
 
