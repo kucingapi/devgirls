@@ -1,7 +1,7 @@
-const { sequelize } = require('./entities/models');
-const app = require('./app');
-const port = process.env.PORT || 3000;
-const nodeEnv = process.env.NODE_ENV.trim();
+// const { sequelize } = require('./entities/models');
+// const app = require('./app');
+// const port = process.env.PORT || 3000;
+// const nodeEnv = process.env.NODE_ENV.trim();
 
 const dotenv = require('dotenv') || {};
 const env = dotenv.config().parsed;
