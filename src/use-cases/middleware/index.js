@@ -6,7 +6,7 @@ const makeAuth = require('./auth');
 const makePengurus = require('./pengurus');
 
 const env = dotenv.config().parsed;
-const { TOKEN_SECRET } = env;
+const { TOKEN_SECRET } = env || process.env;
 
 const auth = makeAuth(jwt, UseCaseError, TOKEN_SECRET);
 const pengurus = makePengurus(jwt, UseCaseError, TOKEN_SECRET);

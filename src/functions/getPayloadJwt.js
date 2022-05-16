@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { UseCaseError } = require('../entities/error');
 
 const env = dotenv.config().parsed;
-const { TOKEN_SECRET } = env;
+const { TOKEN_SECRET } = env || process.env;
 
 const getPayloadJwt = (headers) => {
   const authToken = headers.authToken;

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 const env = dotenv.config().parsed;
-const { TOKEN_SECRET } = env;
+const { TOKEN_SECRET } = env || process.env;
 
 const makeRegisterAnggota = require('./register-anggota');
 const makeLoginAnggota = require('./login-anggota');
