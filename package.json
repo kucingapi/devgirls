@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon src/index.js",
-    "start": "set NODE_ENV=production && node src/index.js",
+    "start": "set NODE_ENV=production && pm2-runtime start src/index.js --env production",
     "sync": "set NODE_ENV=sync && nodemon src/index.js",
-    "sync:production": "set NODE_ENV=sync && node src/index.js",
+    "sync:production": "set NODE_ENV=sync && pm2-runtime start src/index.js --env sync",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
