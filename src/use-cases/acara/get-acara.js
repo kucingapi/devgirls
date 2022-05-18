@@ -20,8 +20,6 @@ const makeGetAcara = (getAllAcara, UseCaseError) => {
         return {...acara.dataValues,kategori};
       })
     );
-    console.log(manyAcara);
-
     const pagination = {
       page: manyPage,
       per_page: pageSize,

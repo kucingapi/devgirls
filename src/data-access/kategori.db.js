@@ -19,7 +19,7 @@ const createKategori = async (label) => {
  * @returns {Promise}
  */
 const createKategoriAcaraAsc = async (idAcara, idKategori) => {
-  const acara = await findAcaraById(idAcara);
+  const { acara } = await findAcaraById(idAcara);
   const kategori = await Kategori.findByPk(idKategori);
   const asc = await acara.addKategori(kategori);
   return await asc;
@@ -31,12 +31,11 @@ const createKategoriAcaraAsc = async (idAcara, idKategori) => {
  * @returns {Promise}
  */
 const createKategoriArtikelAsc = async (idArtikel, idKategori) => {
-  const artikel = await findArtikelById(idArtikel);
+  const { artikel } = await findArtikelById(idArtikel);
   const kategori = await Kategori.findByPk(idKategori);
   const asc = await artikel.addKategori(kategori);
   return await asc;
 };
-
 
 /**
  * @param {String} label
@@ -52,4 +51,9 @@ const getAllKategori = async (label) => {
   });
 };
 
-module.exports = { createKategori, getAllKategori, createKategoriAcaraAsc, createKategoriArtikelAsc };
+module.exports = {
+  createKategori,
+  getAllKategori,
+  createKategoriAcaraAsc,
+  createKategoriArtikelAsc,
+};

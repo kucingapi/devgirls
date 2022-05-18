@@ -1,10 +1,3 @@
-const { deleteAcara } = require('../../data-access/acara.db');
-const { UseCaseError } = require('../../entities/error');
-const {
-  removeArtikelValidation,
-} = require('../../validation/artikel.validation');
-const validate = require('../../validation/validate');
-
 const makeRemoveAcara = (
   deleteAcara,
   UseCaseError,

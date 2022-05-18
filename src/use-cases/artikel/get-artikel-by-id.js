@@ -1,5 +1,9 @@
-
-const makeGetArtikelById = (findArtikelById, getArtikelByIdValidation, validate, UseCaseError) => {
+const makeGetArtikelById = (
+  findArtikelById,
+  getArtikelByIdValidation,
+  validate,
+  UseCaseError
+) => {
   return async function getArtikelById({ params }) {
     validate(getArtikelByIdValidation, params);
     const { id } = params;

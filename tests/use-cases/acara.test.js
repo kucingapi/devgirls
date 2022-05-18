@@ -9,7 +9,6 @@ const {
   registerAcara,
   getAcaraFromAnggota,
 } = require('../../src/use-cases/acara');
-const makeGetAcaraFromAnggota = require('../../src/use-cases/acara/get-anggota-acara');
 const {
   registerAnggota,
   loginAnggota,
@@ -30,7 +29,7 @@ describe('add acara use case', () => {
 
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const newAcara = await addAcara({
+    await addAcara({
       body: {
         title: 'title',
         description: 'ini adalah suatu deskripsi',

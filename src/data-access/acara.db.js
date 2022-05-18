@@ -58,6 +58,8 @@ const getAllAcara = async (
  */
 const findAcaraById = async (id) => {
   const acara = await Acara.findByPk(id);
+  if(!acara)
+    return { acara: null, kategori: null}
   const kategori = await acara.getKategoris();
   return { acara, kategori };
 };

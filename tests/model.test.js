@@ -67,7 +67,6 @@ describe('Acara Model', () => {
   it('can be add to anggota', async () => {
     await newAnggota.addAcaras([newAcara]);
     const manyAcara = await newAnggota.countAcaras();
-    const anggota = await Anggota.findByPk(1);
     expect(manyAcara).toEqual(1);
   });
 
@@ -79,10 +78,11 @@ describe('Acara Model', () => {
   });
 
   it('should has many to many relation with kategori', async () => {
-    const newKategori = await Kategori.create({label: "ui/ux"});
+    const newKategori = await Kategori.create({label: "programming"});
     await newAcara.addKategori(newKategori);
     const kategoriAcara = await newAcara.countKategoris();
     expect(kategoriAcara).toEqual(1);
+    newKategori.destroy();
   });
 });
 

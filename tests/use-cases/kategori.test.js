@@ -67,7 +67,6 @@ describe('create kategori acara use case', () => {
 
   it('should create asc', async () => {
     const { kategoriId, acaraId } = asc[0].dataValues;
-    console.log(kategoriId, acaraId);
     expect(asc.constructor).toBe(Array);
     expect(kategoriId).toBe(newKategori.id);
     expect(acaraId).toBe(newAcara.id);
@@ -75,7 +74,7 @@ describe('create kategori acara use case', () => {
 
   it('should throw error when asc already made', async () => {
     let err;
-    const asc2 = await addKategoriAcara({
+    await addKategoriAcara({
       params: { id: newKategori.id },
       body: { id: newAcara.id },
     }).catch((e) => {
@@ -117,7 +116,7 @@ describe('create kategori artikel use case', () => {
 
   it('should throw error when asc already made', async () => {
     let err;
-    const asc2 = await addKategoriAcara({
+    await addKategoriAcara({
       params: { id: newKategori.id },
       body: { id: newArtikel.id },
     }).catch((e) => {

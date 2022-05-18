@@ -31,7 +31,7 @@ module.exports = (controller) => (req, res) => {
     })
 
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       if (!e.statusCode) {
         e.statusCode = 500;
       }

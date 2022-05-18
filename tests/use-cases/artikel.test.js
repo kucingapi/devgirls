@@ -245,7 +245,7 @@ describe('get artikel by id use cases', () => {
 
   it('should found 1 id when the id is found', async () => {
     const id = newArtikel.id;
-    const artikel = await getArtikelById({ params: { id: id } });
+    const { artikel }  = await getArtikelById({ params: { id: id } });
     expect(artikel instanceof Artikel).toBeTruthy();
   });
 });

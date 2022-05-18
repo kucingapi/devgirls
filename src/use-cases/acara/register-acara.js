@@ -14,7 +14,7 @@ const makeRegisterAcara = (
     const { id } = params;
     const payload = getPayloadJwt(headers);
     const { id: idAnggota } = payload;
-    const acara = await findAcaraById(id).catch(sequelizeErrorHandler);
+    const { acara } = await findAcaraById(id).catch(sequelizeErrorHandler);
     const anggota = await findAnggotaById(idAnggota).catch(
       sequelizeErrorHandler
     );
