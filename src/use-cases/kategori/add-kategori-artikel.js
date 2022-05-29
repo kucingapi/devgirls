@@ -1,11 +1,4 @@
-const { createKategoriArtikelAsc } = require('../../data-access/kategori.db');
-const { UseCaseError, sequelizeErrorHandler } = require('../../entities/error');
-const {
-  kategoriAcaraValidation,
-} = require('../../validation/kategori.validation');
-const validate = require('../../validation/validate');
-
-const makeAddKategoriArtikel = () =>
+const makeAddKategoriArtikel = (createKategoriArtikelAsc,UseCaseError, sequelizeErrorHandler,kategoriAcaraValidation,validate) =>
   async function addKategoriArtikel({ params, body }) {
     validate(kategoriAcaraValidation, params);
     validate(kategoriAcaraValidation, body);

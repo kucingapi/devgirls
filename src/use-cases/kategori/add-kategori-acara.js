@@ -1,11 +1,5 @@
-const { createKategoriAcaraAsc } = require('../../data-access/kategori.db');
-const { UseCaseError } = require('../../entities/error');
-const {
-  kategoriAcaraValidation,
-} = require('../../validation/kategori.validation');
-const validate = require('../../validation/validate');
 
-const makeAddKategoriAcara = () =>
+const makeAddKategoriAcara = (createKategoriAcaraAsc, UseCaseError, kategoriAcaraValidation, validate) =>
   async function addKategoriAcara({ params, body }) {
     validate(kategoriAcaraValidation, params);
     validate(kategoriAcaraValidation, body);
