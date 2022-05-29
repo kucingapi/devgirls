@@ -18,8 +18,8 @@ const makeRegisterAcara = (
     const anggota = await findAnggotaById(idAnggota).catch(
       sequelizeErrorHandler
     );
-    console.log(anggota.poin);
-    console.log(acara.poin);
+    anggota.poin = anggota.poin + acara.poin;
+    await anggota.save();
     const addAsc = await acara.addAnggota(anggota).catch(sequelizeErrorHandler);
     if (!addAsc) throw new UseCaseError(400, 'Already registered');
     return addAsc;

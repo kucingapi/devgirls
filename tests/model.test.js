@@ -78,7 +78,7 @@ describe('Acara Model', () => {
   });
 
   it('should has many to many relation with kategori', async () => {
-    const newKategori = await Kategori.create({label: "programming"});
+    const [newKategori] = await Kategori.findOrCreate({where:{label:"programming"},label: "programming"});
     await newAcara.addKategori(newKategori);
     const kategoriAcara = await newAcara.countKategoris();
     expect(kategoriAcara).toEqual(1);

@@ -223,7 +223,7 @@ describe('register acara use case', () => {
     const anggota = await registerAnggota({
       body: {
         nama: 'novel',
-        email: 'test2@mail.com',
+        email: 'test3@mail.com',
         password: '12345',
       },
     });
@@ -231,7 +231,7 @@ describe('register acara use case', () => {
     newAnggota = await Anggota.findOne({ where: { id: idAnggota } });
     loggedAnggota = await loginAnggota({
       body: {
-        email: 'test2@mail.com',
+        email: 'test3@mail.com',
         password: '12345',
       },
     });
@@ -305,7 +305,7 @@ describe('get anggota acara use case', () => {
     const anggota = await registerAnggota({
       body: {
         nama: 'novel',
-        email: 'test2@mail.com',
+        email: 'test3@mail.com',
         password: '12345',
       },
     });
@@ -313,7 +313,7 @@ describe('get anggota acara use case', () => {
     newAnggota = await Anggota.findOne({ where: { id: idAnggota } });
     loggedAnggota = await loginAnggota({
       body: {
-        email: 'test2@mail.com',
+        email: 'test3@mail.com',
         password: '12345',
       },
     });
