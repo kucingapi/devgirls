@@ -18,10 +18,12 @@ router.post(
   makeExpressMiddlewareCallback(middlewareController.auth),
   makeExpressCallback(acaraController.registerAcara)
 );
-pengurusGroup.post('/kategori/:id', makeExpressCallback(acaraController.addKategoriAcara));
+pengurusGroup.post(
+  '/kategori/:id',
+  makeExpressCallback(acaraController.addKategoriAcara)
+);
 pengurusGroup.post('/', makeExpressCallback(acaraController.addAcara));
 pengurusGroup.delete('/', makeExpressCallback(acaraController.removeAcara));
-
 router.use(pengurusGroup);
 
 module.exports = router;
