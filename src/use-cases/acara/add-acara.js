@@ -12,6 +12,7 @@ const makeAddAcara = (
 ) => {
   return async function addAcara({ body, files }) {
     validate(addAcaraValidation, body);
+    console.log(files);
     validate(fileValidation, files);
     const { title, description, registrationDate, endDate, poin } = body;
     const { file } = files;
