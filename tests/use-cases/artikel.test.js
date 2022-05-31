@@ -42,12 +42,18 @@ describe('add artikel use cases', () => {
       },
     });
     const token = loginResult.header.data;
+    const file = {
+      data: Buffer.from('abc'),
+      mimetype: 'image/jpeg',
+    };
     const artikel = await addArtikel({
       headers: { authToken: token },
       body: {
         title: 'ini adalah title',
         description: 'ini adalah deskripsi',
-        photo: 'ini adalah foto',
+      },
+      files: {
+        file,
       },
     });
     expect(artikel instanceof Artikel).toBeTruthy();
@@ -94,12 +100,18 @@ describe('remove artikel use cases', () => {
       },
     });
     token = loginResult.header.data;
+    const file = {
+      data: Buffer.from('abc'),
+      mimetype: 'image/jpeg',
+    };
     artikel = await addArtikel({
       headers: { authToken: token },
       body: {
         title: 'ini adalah title',
         description: 'ini adalah deskripsi',
-        photo: 'ini adalah photo',
+      },
+      files: {
+        file,
       },
     });
   });
@@ -245,7 +257,7 @@ describe('get artikel by id use cases', () => {
 
   it('should found 1 id when the id is found', async () => {
     const id = newArtikel.id;
-    const { artikel }  = await getArtikelById({ params: { id: id } });
+    const { artikel } = await getArtikelById({ params: { id: id } });
     expect(artikel instanceof Artikel).toBeTruthy();
   });
 });
@@ -284,9 +296,13 @@ describe('update artikel use case', () => {
   it('should change the artikel title, description, and photo', async () => {
     await updateArtikel({
       params: { id: newArtikel.id },
-      body: { title: 'changed', description: 'changed description', photo: 'changed photo' },
+      body: {
+        title: 'changed',
+        description: 'changed description',
+        photo: 'changed photo',
+      },
     });
-    await newArtikel.reload()
+    await newArtikel.reload();
     expect(newArtikel.judulArtikel).toBe('changed');
     expect(newArtikel.deskripsiArtikel).toBe('changed description');
     expect(newArtikel.fotoArtikel).toBe('changed photo');

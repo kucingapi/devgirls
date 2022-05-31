@@ -29,14 +29,20 @@ describe('add acara use case', () => {
 
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
+    const file = {
+      data: Buffer.from('abc'),
+      mimetype: 'image/jpeg',
+    };
     await addAcara({
       body: {
         title: 'title',
         description: 'ini adalah suatu deskripsi',
-        photo: 'link photo',
         registrationDate: yesterday,
         endDate: yesterday,
         poin: 100,
+      },
+      files: {
+        file,
       },
     }).catch((e) => {
       error = e;
@@ -46,15 +52,21 @@ describe('add acara use case', () => {
 
   it('should create a new acara', async () => {
     var tomorrow = new Date();
+    const file = {
+      data: Buffer.from('abc'),
+      mimetype: 'image/jpeg',
+    };
     tomorrow.setDate(tomorrow.getDate() + 1);
     const newAcara = await addAcara({
       body: {
         title: 'title',
         description: 'ini adalah suatu deskripsi',
-        photo: 'link photo',
         registrationDate: tomorrow,
         endDate: tomorrow,
         poin: 100,
+      },
+      files: {
+        file,
       },
     });
     expect(newAcara instanceof Acara).toBeTruthy();
