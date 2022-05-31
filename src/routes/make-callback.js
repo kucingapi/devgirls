@@ -3,6 +3,7 @@ module.exports = (controller) => (req, res) => {
     body: req.body,
     query: req.query,
     params: req.params,
+    files: req.files,
     headers: {
       authToken: req.header('authorization'),
     },
