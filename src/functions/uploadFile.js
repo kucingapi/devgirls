@@ -10,7 +10,7 @@ const { supabase } = require('../entities/supabase');
 const uploadFile = async (file, name, bucket) => {
   return await supabase.storage
     .from(bucket)
-    .upload(name, file.data, { contentType: file.mimetype });
+    .upload(`${name}`, file.data, { contentType: file.mimetype });
 };
 
-module.exports = uploadFile;
+module.exports =  uploadFile ;
