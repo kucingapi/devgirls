@@ -13,8 +13,12 @@ app.use(express.json());
 
 app.use(fileUpload());
 
+const corsOptions = {
+  exposedHeaders: 'Auth-Token',
+};
+
 // enable cors
-app.use(cors());
+app.use(cors(corsOptions));
 app.options('*', cors());
 
 app.post('/', (req,res) => {
