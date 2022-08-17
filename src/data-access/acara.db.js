@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { Acara } = require('../entities');
+const { Kategori } = require('../entities');
 
 /**
  * @param {String} title
@@ -31,10 +32,29 @@ const getAllAcara = async (
   pageNumber,
   pageSize,
   filterTitle,
-  filterDescription
+  filterDescription,
+  filterTag
 ) => {
   const offset = (pageNumber - 1) * pageSize;
+
+  const kategori = await Kategori.findOne({
+    where: {
+      label: {
+        [Op.substring]: filterTag,
+      },
+    },
+  });
+
+  const include =
+    filterTag === null
+      ? []
+      : {
+          model: Kategori,
+          where: { id: { [Op.in]: [kategori.id] } },
+        };
+
   return await Acara.findAndCountAll({
+    include,
     where: {
       judulAcara: {
         [Op.substring]: filterTitle,
@@ -58,8 +78,7 @@ const getAllAcara = async (
  */
 const findAcaraById = async (id) => {
   const acara = await Acara.findByPk(id);
-  if(!acara)
-    return { acara: null, kategori: null}
+  if (!acara) return { acara: null, kategori: null };
   const kategori = await acara.getKategoris();
   return { acara, kategori };
 };

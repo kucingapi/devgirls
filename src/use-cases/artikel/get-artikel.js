@@ -3,12 +3,15 @@ const makeGetArtikel = (getAllArtikel, UseCaseError) => {
     const page = query.page || 1;
     const filterTitle = query.title || '';
     const filterDescription = query.description || '';
+    const filterTag = query.tag || null;
+
     const pageSize = 10;
     const { rows, count } = await getAllArtikel(
       page,
       pageSize,
       filterTitle,
-      filterDescription
+      filterDescription,
+      filterTag
     ).catch((e) => {
       throw new UseCaseError(300, 'bad request', ...e);
     });

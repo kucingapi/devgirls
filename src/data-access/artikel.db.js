@@ -1,4 +1,4 @@
-const { Artikel } = require('../entities');
+const { Artikel, Kategori } = require('../entities');
 const { findAnggota } = require('./anggota.db');
 const { Op } = require('sequelize');
 
@@ -62,10 +62,29 @@ const getAllArtikel = async (
   pageNumber,
   pageSize,
   filterTitle,
-  filterDescription
+  filterDescription,
+  filterTag
 ) => {
   const offset = (pageNumber - 1) * pageSize;
+
+  const kategori = await Kategori.findOne({
+    where: {
+      label: {
+        [Op.substring]: filterTag,
+      },
+    },
+  });
+
+  const include =
+    filterTag === null
+      ? []
+      : {
+          model: Kategori,
+          where: { id: { [Op.in]: [kategori.id] } },
+        };
+
   return await Artikel.findAndCountAll({
+    include,
     where: {
       judulArtikel: {
         [Op.substring]: filterTitle,
@@ -93,7 +112,7 @@ const getAllArtikel = async (
  */
 const findArtikelById = async (id) => {
   const artikel = await Artikel.findByPk(id);
-  if(artikel === null){
+  if (artikel === null) {
     return null;
   }
   const kategori = await artikel.getKategoris();
