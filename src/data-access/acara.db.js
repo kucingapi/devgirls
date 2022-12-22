@@ -16,7 +16,9 @@ const createAcara = async (
   photo,
   registrationDate,
   endDate,
-  poin
+  poin,
+  startTime,
+  endTime
 ) => {
   return await Acara.create({
     judulAcara: title,
@@ -25,6 +27,8 @@ const createAcara = async (
     tanggalPendaftaran: registrationDate,
     tanggalAcara: endDate,
     poin,
+    waktuMulai: startTime,
+    waktuBerakhir: endTime,
   });
 };
 

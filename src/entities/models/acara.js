@@ -18,6 +18,12 @@ module.exports = (DataTypes) => ({
     type: DataTypes.DATE,
     allowNull: false,
   },
+  waktuMulai: {
+    type: DataTypes.TIME,
+  },
+  waktuBerakhir: {
+    type: DataTypes.TIME,
+  },
   tanggalAcara: {
     type: DataTypes.DATE,
     allowNull: false,

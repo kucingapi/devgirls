@@ -12,9 +12,16 @@ const makeAddAcara = (
 ) => {
   return async function addAcara({ body, files }) {
     validate(addAcaraValidation, body);
-    console.log(files);
     validate(fileValidation, files);
-    const { title, description, registrationDate, endDate, poin } = body;
+    const {
+      title,
+      description,
+      registrationDate,
+      endDate,
+      poin,
+      startTime,
+      endTime,
+    } = body;
     const { file } = files;
     const noPhoto =
       'https://archive.org/download/no-photo-available/no-photo-available.png';
@@ -29,8 +36,11 @@ const makeAddAcara = (
       noPhoto,
       registrationDate,
       endDate,
-      poin
+      poin,
+      startTime,
+      endTime
     ).catch(sequelizeErrorHandler);
+
     const date = new Date(endDate);
     schedule.scheduleJob(date, async function () {
       newAcara.set({
