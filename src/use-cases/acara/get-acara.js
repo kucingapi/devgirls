@@ -4,8 +4,8 @@ const makeGetAcara = (getAllAcara, UseCaseError) => {
     const filterTitle = query.title || '';
     const filterDescription = query.description || '';
     const filterTag = query.tag || null;
-    
-    const pageSize = 10;
+
+    const pageSize = 9;
     const { rows, count } = await getAllAcara(
       page,
       pageSize,
@@ -20,7 +20,7 @@ const makeGetAcara = (getAllAcara, UseCaseError) => {
     const manyAcara = await Promise.all(
       rows.map(async (acara) => {
         const kategori = await acara.getKategoris();
-        return {...acara.dataValues,kategori};
+        return { ...acara.dataValues, kategori };
       })
     );
     const pagination = {

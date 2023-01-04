@@ -70,3 +70,6 @@ _Below is an example of how you can instruct your audience on installing and set
 	SUPABASE_KEY=asdfakjfds
    ```
 8. Change name `.env.example` to `.env`
+### Documentation
+Here is the link to documentation in postman
+[Link](https://documenter.getpostman.com/view/13668036/Uz5FJwX8)

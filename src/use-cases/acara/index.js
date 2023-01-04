@@ -7,6 +7,7 @@ const {
   createAcara,
   findAcaraById,
   deleteAcara,
+  getAllAcaraName,
 } = require('../../data-access/acara.db');
 const { sequelizeErrorHandler } = require('../../entities/error');
 const {
@@ -24,6 +25,7 @@ const {
 } = require('../../validation/artikel.validation');
 const { findAnggotaById } = require('../../data-access/anggota.db');
 const makeGetAcaraFromAnggota = require('./get-anggota-acara');
+const makeGetAcaraName = require('./get-acara-name');
 
 const addAcara = makeAddAcara(
   createAcara,
@@ -66,6 +68,8 @@ const getAcaraFromAnggota = makeGetAcaraFromAnggota(
   validate
 );
 
+const getAcaraName = makeGetAcaraName(getAllAcaraName, sequelizeErrorHandler);
+
 const acaraService = Object.freeze({
   addAcara,
   getAcara,
@@ -73,6 +77,7 @@ const acaraService = Object.freeze({
   removeAcara,
   registerAcara,
   getAcaraFromAnggota,
+  getAcaraName,
 });
 
 module.exports = acaraService;
@@ -83,4 +88,5 @@ module.exports = {
   removeAcara,
   registerAcara,
   getAcaraFromAnggota,
+  getAcaraName,
 };

@@ -8,9 +8,7 @@ module.exports = (DataTypes) => ({
   },
   deskripsiArtikel: {
     type: DataTypes.TEXT,
-    validate: {
-      len: [10, 255],
-    },
+
     allowNull: false,
   },
   fotoArtikel: DataTypes.STRING,

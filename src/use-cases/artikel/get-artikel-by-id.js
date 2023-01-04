@@ -8,13 +8,13 @@ const makeGetArtikelById = (
     validate(getArtikelByIdValidation, params);
     const { id } = params;
 
-    const artikel = await findArtikelById(id).catch((e) => {
+    const { artikel, kategori } = await findArtikelById(id).catch((e) => {
       throw new UseCaseError(500, 'database error', ...e);
     });
     if (artikel === null) {
       throw new UseCaseError(404, 'aritikel not found');
     }
-    return artikel;
+    return { artikel, kategori };
   };
 };
 

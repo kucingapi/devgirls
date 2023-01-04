@@ -99,4 +99,8 @@ const deleteAcara = async (id) => {
   });
 };
 
-module.exports = { createAcara, getAllAcara, findAcaraById, deleteAcara };
+const getAllAcaraName = async () => {
+  return await Acara.findAndCountAll({ attributes: ['judulAcara'] });
+};
+
+module.exports = { createAcara, getAllAcara, findAcaraById, deleteAcara, getAllAcaraName };

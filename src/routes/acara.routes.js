@@ -11,6 +11,7 @@ pengurusGroup.use(makeExpressMiddlewareCallback(middlewareController.pengurus));
 const router = express.Router();
 
 router.get('/me', makeExpressCallback(acaraController.getAcaraFromAnggota));
+router.get('/name', makeExpressCallback(acaraController.getAcaraName));
 router.get('/:id', makeExpressCallback(acaraController.getAcaraById));
 router.get('/', makeExpressCallback(acaraController.getAcara));
 router.post(
